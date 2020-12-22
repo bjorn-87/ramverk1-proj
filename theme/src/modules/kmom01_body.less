@@ -1,0 +1,190 @@
+/*!
+ * Stylesheet for ramverk1 kmom01.
+ * kmom01_body
+ * This stylesheet is for the ramverk1 course and kmom01.
+ */
+
+ /**
+  * Variables
+  */
+
+
+@mainBgColor: beige;
+@footerBgColor: #1d5937;
+@footerColor: #fff;
+@aColor: #36ce1e;
+@aHoverColor: #fff;
+@footeraHoverColor: #eee;
+
+.blog-post h1,
+.blog-post h2,
+.blog-post h3 {
+    clear: both;
+}
+
+ .breadcrumb-list li,
+ .block .toc li {
+     list-style-type: none;
+     display: inline;
+}
+
+.breadcrumb-list ul {
+    padding-top: 12px;
+    padding-left: 0px;
+}
+
+.breadcrumb-list ul li::after {
+  content: " /";
+}
+
+.breadcrumb-list ul li:last-child::after {
+  content: "";
+}
+
+.region-sidebar-right {
+    box-shadow: 1px 1px 10px 0px #999;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    margin-top: 24px;
+}
+
+.region-sidebar-right h4 {
+    background-image: linear-gradient(to right,#fff,#ccc);
+    margin-top: 0;
+    padding: 0.5em;
+}
+
+.region-sidebar-right p {
+    margin: 16px 0 24px;
+    padding-left: 24px;
+}
+
+.breadcrumb-list a,
+.has-sidebar a,
+.next-previous a {
+    color: @aColor;
+    text-decoration: none;
+}
+
+.has-sidebar a:hover,
+.breadcrumb-list a:hover,
+.next-previous a:hover {
+    color: @aHoverColor;
+    text-decoration: underline;
+}
+
+.region-footer a:hover {
+    color: @footeraHoverColor;
+    text-decoration: underline;
+}
+
+.next {
+    float: right;
+}
+
+
+.inner-wrap-main {
+    background-color: @mainBgColor;
+    min-height: 600px;
+}
+
+.inner-wrap-breadcrumb {
+    background-color: @mainBgColor;
+}
+
+.figure {
+    margin-bottom: 24px;
+    text-align: center;
+    box-shadow: 1px 1px 10px 0px #999;
+}
+
+.figure img {
+    padding: 1em;
+}
+
+.toc li a {
+    display: block;
+}
+
+.toc ul {
+    padding-left: 0;
+}
+
+.block.toc {
+    box-shadow: 1px 1px 10px 0px #999;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}
+
+.block.toc h4 {
+    padding-left: 24px;
+    background-image: linear-gradient(to right,#fff,#ccc);
+    padding: 0.5em;
+}
+
+.block.toc a {
+    text-decoration: none;
+    color: @aColor;
+    margin: 16px 0 24px;
+    padding-left: 24px;
+}
+
+.block .toc .selected a::after,
+.block .toc a:hover::after {
+    content: "";
+    display: inline-block;
+    border-top: 5px solid transparent;
+    border-left: 7px solid #222;
+    border-bottom: 5px solid transparent;
+    margin-left: 10px;
+}
+
+.block.toc .selected a,
+.block.toc a:hover {
+     text-decoration: underline;
+}
+
+.toc .section-header {
+    font-weight: 700;
+}
+
+.outer-wrap-footer {
+    background-color: @footerBgColor;
+    color: @footerColor;
+    border-top: 1px solid #ccc;
+}
+
+.outer-wrap-footer a {
+    color: @footerColor;
+}
+
+.header-anchor {
+    position: relative;
+    float: right;
+    color: #ccc;
+    margin-left: -1em;
+    text-decoration: none;
+}
+
+.header-anchor:hover {
+    display: block;
+    text-decoration: underline;
+    color: blue;
+}
+
+.preWrap {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.flashmessage-icon {
+    float: right;
+    font-size: 3em;
+    padding-right: .5em;
+}
+
+.bookImage {
+    width: 80px;
+}
+
+/* byline */

@@ -1,0 +1,32 @@
+/**
+ * Base style to affect HTML elements on a general scale.
+ */
+@bgColorHtml: #424242;
+@bgColorBody: #fff;
+@colorBody: #333;
+
+/* Poor-mans normalize */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    overflow-y: scroll;
+    background-color: @bgColorHtml;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: @colorBody;
+    background-image: radial-gradient(circle, #fff, #ddd);
+    #desinax-hgrid.font(@fontSizeBody); // Activate the grid base font
+}
+
+img {
+    max-width: 100%;
+}
+
+// Activate grid and affect all typographic elements
+#desinax-hgrid.activateDefaultTypography();

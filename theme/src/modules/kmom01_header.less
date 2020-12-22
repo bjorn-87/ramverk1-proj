@@ -1,0 +1,84 @@
+/*!
+ * Stylesheet for ramverk1 kmom01.
+ * kmom01_header
+ * This stylesheet is for the ramverk1 course and kmom01..
+ */
+ /* Header */
+
+@headerColor:  #fff; //#333;
+@headerBgColor: #1d5937;
+@aColor: #36ce1e;
+@aHoverColor: #fff;
+@navbarItemHoverColor: #fff;
+@headerLogoColor: #fff;
+@selectedColor: #fff;
+@hColor: inherit;
+
+h1 {
+    color: @hColor;
+}
+
+.site-logo-text-icon {
+    display: none;
+}
+
+.outer-wrap-header a {
+    text-decoration: none;
+}
+
+.my-navbar {
+    list-style-type: none;
+    text-align: center;
+}
+
+.my-navbar li {
+    display: inline;
+}
+
+.my-navbar a {
+    font-size: 18px;
+    padding: 0.5em;
+    font-family: @fontNavbar;
+}
+
+.rm-button-face-1,
+.outer-wrap.outer-wrap-header a {
+    color: @headerColor;
+}
+
+.my-navbar a:hover {
+    color: @navbarItemHoverColor;
+    text-decoration: underline;
+    text-shadow:
+    -1px -1px 0 #222,
+    1px -1px 0 #222,
+    -1px 1px 0 #222,
+    1px 1px 0 #222;
+}
+
+.rm-default .selected a,
+.rm-default .selected-parent a {
+    color: @selectedColor;
+    text-decoration: underline;
+}
+
+.outer-wrap-header {
+    background-color: @headerBgColor; //#5b4b41;
+}
+
+.site-logo {
+    display: none;
+}
+
+.site-logo-text {
+    font-family: @fontLogo;
+    font-size: 2em;
+    padding-top: 1em;
+    font-style: italic;
+    color: @headerLogoColor;
+    margin-left: 0.5em;
+}
+
+.rm-button-face-1 {
+    font-size: 24px;
+}
