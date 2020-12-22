@@ -1,9 +1,9 @@
 Travis  
-[![Build Status](https://travis-ci.com/bjorn-87/ramverk1-proj.svg?branch=master)](https://travis-ci.com/bjorn-87/ramverk1-proj)  
+[![Build Status](https://travis-ci.com/bjorn-87/ramverk1-proj.svg?branch=main)](https://travis-ci.com/bjorn-87/ramverk1-proj)  
 Scrutinizer  
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bjorn-87/ramverk1-proj/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bjorn-87/ramverk1-proj/?branch=master)  
-[![Code Coverage](https://scrutinizer-ci.com/g/bjorn-87/ramverk1-proj/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/bjorn-87/ramverk1-proj/?branch=master)  
-[![Build Status](https://scrutinizer-ci.com/g/bjorn-87/ramverk1-proj/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bjorn-87/ramverk1-proj/build-status/master)  
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bjorn-87/ramverk1-proj/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/bjorn-87/ramverk1-proj/?branch=main)  
+[![Code Coverage](https://scrutinizer-ci.com/g/bjorn-87/ramverk1-proj/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/bjorn-87/ramverk1-proj/?branch=main)  
+[![Build Status](https://scrutinizer-ci.com/g/bjorn-87/ramverk1-proj/badges/build.png?b=main)](https://scrutinizer-ci.com/g/bjorn-87/ramverk1-proj/build-status/main)  
 CircleCI  
 [![<ORG_NAME>](https://circleci.com/gh/bjorn-87/ramverk1-proj.svg?style=svg)](https://app.circleci.com/pipelines/github/bjorn-87/ramverk1-proj)  
 
