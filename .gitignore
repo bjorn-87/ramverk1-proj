@@ -4,3 +4,5 @@
 memory::
 composer.lock
 .phpunit.result.cache
+
+/config/database.php
