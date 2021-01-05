@@ -33,18 +33,15 @@ SET NAMES utf8mb4;
 DROP TABLE IF EXISTS User;
 CREATE TABLE User (
     `id` INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    `username` VARCHAR(20) UNIQUE NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    `firstname` VARCHAR(256),
-    `surname` VARCHAR(256),
+    `username` VARCHAR(50) UNIQUE NOT NULL,
+    `password` VARCHAR(50) NOT NULL,
+    `firstname` VARCHAR(50),
+    `surname` VARCHAR(50),
     `email` VARCHAR(50) UNIQUE NOT NULL,
-    `role` CHAR(20),
-    `description` VARCHAR(500),
-    `image` VARCHAR(256),
+    `role` CHAR(20) DEFAULT "user",
     `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `updated` DATETIME,
-    `deleted` DATETIME,
-    `active` DATETIME
+    `updated` TIMESTAMP DEFAULT NULL
+		ON UPDATE CURRENT_TIMESTAMP,
 ) ENGINE INNODB CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci;
 
 INSERT INTO User

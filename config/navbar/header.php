@@ -15,9 +15,19 @@ return [
             "title" => "Första sidan, börja här.",
         ],
         [
+            "text" => "Om",
+            "url" => "om",
+            "title" => "Om denna webbplats.",
+        ],
+        [
             "text" => "Forum",
             "url" => "",
             "title" => "Forum",
+        ],
+        [
+            "text" => "Användare",
+            "url" => "user",
+            "title" => "användare",
         ],
         [
             "text" => "Login",
@@ -25,14 +35,9 @@ return [
             "title" => "Logga in",
         ],
         [
-            "text" => "Skapa användare",
+            "text" => "Skapa konto",
             "url" => "user/create",
-            "title" => "Skapa användare",
-        ],
-        [
-            "text" => "Om",
-            "url" => "om",
-            "title" => "Om denna webbplats.",
+            "title" => "Skapa konto",
         ],
     ],
 ];

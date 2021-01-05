@@ -89,4 +89,14 @@ class CreateUserForm extends FormModel
         $this->form->addOutput("User was created.");
         return true;
     }
+
+    /**
+     * Callback what to do if the form was successfully submitted, this
+     * happen when the submit callback method returns true. This method
+     * can/should be implemented by the subclass for a different behaviour.
+     */
+    public function callbackSuccess()
+    {
+        $this->di->get("response")->redirect("user/login")->send();
+    }
 }

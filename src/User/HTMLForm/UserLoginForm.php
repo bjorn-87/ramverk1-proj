@@ -28,12 +28,14 @@ class UserLoginForm extends FormModel
             [
                 "username" => [
                     "type"        => "text",
+                    "validation" => ["not_empty"],
                     //"description" => "Here you can place a description.",
                     //"placeholder" => "Here is a placeholder",
                 ],
 
                 "password" => [
                     "type"        => "password",
+                    "validation" => ["not_empty"],
                     //"description" => "Here you can place a description.",
                     //"placeholder" => "Here is a placeholder",
                 ],
@@ -71,7 +73,25 @@ class UserLoginForm extends FormModel
             return false;
         }
 
+        $this->di->session->set("user", [
+            "id" => $user->id,
+            "username" => $user->username,
+            "loggedIn" => true,
+            "role" => $user->role,
+        ]);
+
         $this->form->addOutput("User " . $user->username . " logged in.");
         return true;
+    }
+
+
+    /**
+     * Callback what to do if the form was successfully submitted, this
+     * happen when the submit callback method returns true. This method
+     * can/should be implemented by the subclass for a different behaviour.
+     */
+    public function callbackSuccess()
+    {
+        $this->di->get("response")->redirect("")->send();
     }
 }
