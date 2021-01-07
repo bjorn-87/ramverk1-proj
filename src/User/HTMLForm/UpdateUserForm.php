@@ -28,7 +28,7 @@ class UpdateUserForm extends FormModel
             ],
             [
                 "id" => [
-                    "type" => "text",
+                    "type" => "number",
                     "validation" => ["not_empty"],
                     "readonly" => true,
                     "value" => $user->id,
@@ -37,6 +37,7 @@ class UpdateUserForm extends FormModel
                 "username" => [
                     "type" => "text",
                     "validation" => ["not_empty"],
+                    "readonly" => true,
                     "value" => $user->username,
                 ],
 
@@ -44,6 +45,31 @@ class UpdateUserForm extends FormModel
                     "type" => "text",
                     "validation" => ["not_empty"],
                     "value" => $user->email,
+                ],
+
+                "firstname" => [
+                    "type" => "text",
+                    "value" => $user->firstname,
+                ],
+
+                "surname" => [
+                    "type" => "text",
+                    "value" => $user->surname,
+                ],
+
+                "old-password" => [
+                    "type" => "password"
+                ],
+
+                "new-password" => [
+                    "type" => "password"
+                ],
+
+                "new-password-again" => [
+                    "type" => "password",
+                    "validation" => [
+                        "match" => "new-password"
+                    ],
                 ],
 
                 "submit" => [
@@ -86,12 +112,49 @@ class UpdateUserForm extends FormModel
      */
     public function callbackSubmit() : bool
     {
+        $email = $this->form->value("email");
+        $oldPassword = $this->form->value("old-password");
+        $newPassword = $this->form->value("new-password");
+        $newPasswordAgain = $this->form->value("new-password-again");
+
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
         $user->find("id", $this->form->value("id"));
-        $user->username = $this->form->value("username");
+
         $user->email = $this->form->value("email");
+        $user->firstname = $this->form->value("firstname");
+        $user->surname = $this->form->value("surname");
+
+
+        // Check password matches
+        if ($newPassword) {
+            $res = $user->verifyPassword($user->username, $oldPassword);
+
+            if (!$res) {
+                $this->form->rememberValues();
+                $this->form->addOutput("Old password did not match.");
+                return false;
+            }
+
+            if ($newPassword !== $newPasswordAgain) {
+                $this->form->rememberValues();
+                $this->form->addOutput("Password did not match.");
+                return false;
+            }
+            $user->setPassword($newPassword);
+        }
+
+        $user->email = $email;
+        $user->updated = date('Y-m-d H:i:s');
         $user->save();
+
+        $this->di->session->set("user", [
+            "id" => $user->id,
+            "username" => $user->username,
+            "email" => $user->email,
+            "role" => $user->role,
+        ]);
+
         return true;
     }
 

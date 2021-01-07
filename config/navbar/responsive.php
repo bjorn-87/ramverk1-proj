@@ -2,6 +2,64 @@
 /**
  * Supply the basis for the navbar as an array.
  */
+
+if (isset($_SESSION["user"])) {
+    return [
+        // Use for styling the menu
+        "id" => "rm-menu",
+        "wrapper" => null,
+        "class" => "rm-default rm-mobile",
+
+        // Here comes the menu items
+        "items" => [
+            [
+                "text" => "Hem",
+                "url" => "",
+                "title" => "Första sidan, börja här.",
+            ],
+            [
+                "text" => "Om",
+                "url" => "om",
+                "title" => "Om denna webbplats.",
+            ],
+            [
+                "text" => "Forum",
+                "url" => "forum",
+                "title" => "Forum",
+                "submenu" => [
+                    "items" => [
+                        [
+                            "text" => "Frågor",
+                            "url" => "question",
+                            "title" => "Frågor",
+                        ],
+                        [
+                            "text" => "Taggar",
+                            "url" => "tags",
+                            "title" => "Taggar",
+                        ],
+                    ],
+                ],
+            ],
+            [
+                "text" => "Användare",
+                "url" => "user",
+                "title" => "användare",
+            ],
+            [
+                "text" => "Konto",
+                "url" => "user/account",
+                "title" => "Konto",
+            ],
+            [
+                "text" => "Logga ut",
+                "url" => "user/logout",
+                "title" => "Logga ut",
+            ],
+        ],
+    ];
+}
+
 return [
     // Use for styling the menu
     "id" => "rm-menu",
@@ -22,8 +80,22 @@ return [
         ],
         [
             "text" => "Forum",
-            "url" => "",
+            "url" => "forum",
             "title" => "Forum",
+            "submenu" => [
+                "items" => [
+                    [
+                        "text" => "Frågor",
+                        "url" => "question",
+                        "title" => "Frågor",
+                    ],
+                    [
+                        "text" => "Taggar",
+                        "url" => "tags",
+                        "title" => "Taggar",
+                    ],
+                ],
+            ],
         ],
         [
             "text" => "Användare",
@@ -34,11 +106,6 @@ return [
             "text" => "Login",
             "url" => "user/login",
             "title" => "Logga in",
-        ],
-        [
-            "text" => "Skapa konto",
-            "url" => "user/create",
-            "title" => "Skapa konto",
-        ],
+        ]
     ],
 ];

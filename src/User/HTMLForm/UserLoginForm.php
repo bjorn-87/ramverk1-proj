@@ -76,11 +76,11 @@ class UserLoginForm extends FormModel
         $this->di->session->set("user", [
             "id" => $user->id,
             "username" => $user->username,
-            "loggedIn" => true,
+            "email" => $user->email,
             "role" => $user->role,
         ]);
 
-        $this->form->addOutput("User " . $user->username . " logged in.");
+        // $this->form->addOutput("User " . $user->username . " logged in.");
         return true;
     }
 

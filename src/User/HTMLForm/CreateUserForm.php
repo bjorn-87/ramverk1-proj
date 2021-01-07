@@ -83,6 +83,7 @@ class CreateUserForm extends FormModel
         $user->setDb($this->di->get("dbqb"));
         $user->email = $email;
         $user->username = $username;
+        $user->created = date('Y-m-d H:i:s');
         $user->setPassword($password);
         $user->save();
 
