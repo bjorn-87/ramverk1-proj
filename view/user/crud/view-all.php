@@ -23,11 +23,11 @@ endif;
 
 <article class="" style="display: flex; padding: 0.5em;">
     <?php foreach ($items as $item) : ?>
-        <a href="<?= url("user/userpage/{$item->username}"); ?>">
+        <a href="<?= url("userpage/user/{$item->username}"); ?>">
         <div class="" style="border: 1px solid black; display: flex; width: 200px; padding: 0.5em; margin: 0.5em; overflow-wrap: break-word; ">
             <img src="<?= $gravatar->getGravatar($item->email)?>" alt="gravatar" style="padding: 0.5em;">
             <p>
-                <a href="<?= url("user/userpage/{$item->username}"); ?>"><?= $item->username ?></a><br>
+                <a href="<?= url("userpage/user/{$item->username}"); ?>"><?= $item->username ?></a><br>
             </p>
         </div>
         </a>

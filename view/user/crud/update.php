@@ -11,11 +11,12 @@ namespace Anax\View;
 
 // Gather incoming variables and use default values if not set
 $item = isset($item) ? $item : null;
+$username = isset($username) ? $username : null;
 
 // var_dump($form);
 
 // Create urls for navigation
-$urlToView = url("user");
+$urlToView = url("userpage/user/{$username}");
 
 
 
@@ -24,5 +25,5 @@ $urlToView = url("user");
 <?= $form ?>
 
 <p>
-    <a href="<?= $urlToView ?>">View all</a>
+    <a href="<?= $urlToView ?>">Tillbaka</a>
 </p>

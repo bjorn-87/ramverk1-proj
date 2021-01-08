@@ -43,12 +43,12 @@ if (isset($_SESSION["user"])) {
             ],
             [
                 "text" => "Användare",
-                "url" => "user",
+                "url" => "userpage",
                 "title" => "användare",
             ],
             [
                 "text" => "Konto",
-                "url" => "user/userpage/$user",
+                "url" => "userpage/user/{$user}",
                 "title" => "Konto",
             ],
             [
@@ -98,7 +98,7 @@ return [
         ],
         [
             "text" => "Användare",
-            "url" => "user",
+            "url" => "userpage",
             "title" => "användare",
         ],
         [

@@ -4,6 +4,7 @@
  */
 
 if (isset($_SESSION["user"])) {
+    $user = $_SESSION["user"]["username"];
     return [
         // Use for styling the menu
         "id" => "rm-menu",
@@ -43,12 +44,12 @@ if (isset($_SESSION["user"])) {
             ],
             [
                 "text" => "Användare",
-                "url" => "user",
+                "url" => "userpage",
                 "title" => "användare",
             ],
             [
                 "text" => "Konto",
-                "url" => "user/account",
+                "url" => "userpage/user/{$user}",
                 "title" => "Konto",
             ],
             [
@@ -99,7 +100,7 @@ return [
         ],
         [
             "text" => "Användare",
-            "url" => "user",
+            "url" => "userpage",
             "title" => "användare",
         ],
         [

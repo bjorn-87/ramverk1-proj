@@ -28,6 +28,7 @@ class User extends ActiveRecordModel
     public $role;
     public $created;
     public $updated;
+    public $deleted;
     public $ranking;
     public $votes;
 
@@ -57,25 +58,5 @@ class User extends ActiveRecordModel
     {
         $this->find("username", $username);
         return password_verify($password, $this->password);
-    }
-
-    /**
-     * Verify the acronym and the password, if successful the object contains
-     * all details from the database row.
-     *
-     * @param string $username  acronym to check.
-     *
-     * @return boolean true if acronym and password matches, else false.
-     */
-    public function checkLoggedInUser($di, $username)
-    {
-        $user = $di->session->get("user", null);
-
-        if (isset($user)) {
-            if ($user["username"] === $username) {
-                return true;
-            }
-        }
-        return false;
     }
 }

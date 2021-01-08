@@ -101,7 +101,8 @@ class DeleteUserForm extends FormModel
             return false;
         }
 
-        $user->delete();
+        $user->deleted = date('Y-m-d H:i:s');
+        $user->save();
         $this->di->session->set("user", null);
         $this->form->addOutput("User " . $username . " was deleted.");
         return true;

@@ -85,7 +85,13 @@ class CreateUserForm extends FormModel
         $user->username = $username;
         $user->created = date('Y-m-d H:i:s');
         $user->setPassword($password);
-        $user->save();
+
+        try {
+            $user->save();
+        } catch (\Exception $e) {
+            $this->form->addOutput("Username or email already exist.");
+            return false;
+        }
 
         $this->form->addOutput("User was created.");
         return true;

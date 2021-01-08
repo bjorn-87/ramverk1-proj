@@ -1,0 +1,154 @@
+/*!
+* Stylesheet for ramverk1 Project.
+*
+* This stylesheet is for the ramverk1 course.
+*/
+
+
+
+/**
+ * Normalize and reset the style.
+ */
+@import "mixin/clearfix.less";
+
+.clearfix() {
+    #design-mixin.clearfix();
+}
+
+
+
+/**
+* Normalize and reset the style.
+*/
+@import "normalize.css/normalize.less";
+
+
+
+/**
+* Font Awesome.
+*/
+@import "@fortawesome/fontawesome-free/less/fontawesome.less";
+@import "@fortawesome/fontawesome-free/less/solid.less";
+@import "@fortawesome/fontawesome-free/less/brands.less";
+
+
+
+/**
+* Base style to affect HTML elements on a general scale.
+*/
+
+// @import "base/base.less";
+@import "base/base_proj.less";
+
+
+
+/**
+ * Import the typographic grid.
+ */
+@import "@desinax/typographic-grid/less/typography-font-families.less";
+@import "@desinax/typographic-grid/less/typography-defaults.less";
+
+// Show the grid
+.hgrid .inner-wrap {
+    @gridImage: "../img/magic-number-@{magicNumber}.png";
+    #desinax-hgrid.showGrid(@gridImage);
+}
+
+
+
+/**
+ * Import the vertical grid.
+ */
+@import "@desinax/vertical-grid/less/grid.less";
+@import "layout/layout_proj.less";
+@import "modules/proj_body.less";
+@import "modules/proj_header.less";
+// @import "modules/validate.less";
+
+// // Default grid, change to fit your requirements.
+// @columnWidth:   30;
+// @gutterWidth:   10;
+// @columns:       24;
+// @gridType:      "float"; // "flex"
+
+
+
+/**
+* Layout style for general structure of header, navbar, main, footer
+* and other regions of the page including route specific styles.
+*/
+
+
+
+@import "layout/responsive_proj.less";
+@import "layout/regions.less";     // To add style for ?regions
+
+
+
+/**
+* A responsive menu.
+*/
+@import "@desinax/responsive-menu/less/responsive-menu.less";
+@import "@desinax/responsive-menu/less/media-queries.less";
+
+
+
+/**
+* Internal self contained modules, save in directory modules/.
+*/
+// @import "modules/proj.less";
+@import "modules/stylechooser_proj.less";  // Just an example module
+
+
+
+/**
+ * Figure and figcaption for images and other media using figure/figcaption
+ */
+@import "@desinax/figure/less/asciinema.less";
+@import "@desinax/figure/less/codepen.less";
+@import "@desinax/figure/less/figure.less";
+
+
+
+// Enable style from the module and optinally add customized layout
+figure.figure {
+    #desinax-figure.figure();
+}
+
+figure.asciinema {
+    &:extend(figure.figure);
+    #desinax-figure.asciinema();
+}
+
+figure.codepen,
+figure.figure-codepen {
+    &:extend(figure.figure);
+    #desinax-figure.codepen();
+}
+
+// All variables for coloring
+@import "modules/proj_variables.less";
+
+/**
+* My own settings, not currently in their own module.
+*/
+
+// Import fonts from google font.
+@import url('https://fonts.googleapis.com/css?family=Acme|Roboto|Sintony&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Cinzel|Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Orbitron|Special+Elite|Turret+Road&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Bree+Serif|Open+Sans&display=swap');
+
+
+
+// Magic number and base fontsize
+@magicNumber:  24px;  // 22px
+@fontSizeBody: 16px;
+// @fontFamilyBody: serif;
+
+// Set font family to use
+@fontFamilyHeadings:  'Open Sans', sans-serif;
+@fontFamilyBody:      'Roboto', sans-serif;
+@fontFamilyCode:      @fontFamilyCourier;
+@fontLogo: 'Orbitron', serif;
+@fontNavbar: 'Montserrat', sans-serif;

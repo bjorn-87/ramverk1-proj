@@ -72,6 +72,11 @@ class UserLoginForm extends FormModel
             $this->form->addOutput("User or password did not match.");
             return false;
         }
+        if ($user->deleted !== null) {
+            $this->form->rememberValues();
+            $this->form->addOutput("User is deleted.");
+            return false;
+        }
 
         $this->di->session->set("user", [
             "id" => $user->id,

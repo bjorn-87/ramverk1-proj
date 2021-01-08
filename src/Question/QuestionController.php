@@ -85,7 +85,69 @@ class QuestionController implements ContainerInjectableInterface
         ]);
     }
 
-
+    //
+    // /**
+    //  * Handler with form to delete an item.
+    //  *
+    //  * @return object as a response object
+    //  */
+    // public function deleteAction() : object
+    // {
+    //     $page = $this->page;
+    //     $user = $this->session->get("user", null);
+    //     if (!$user) {
+    //         $this->di->get("response")->redirect("user/login")->send();
+    //     }
+    //     $id = isset($user) ? $user["id"] : null;
+    //
+    //     $tags = $this->tags;
+    //     $question = $this->question;
+    //
+    //
+    //     // var_dump($tags);
+    //     // var_dump($question);
+    //
+    //
+    //     $tags->setDb($this->di->get("dbqb"));
+    //     $question->setDb($this->di->get("dbqb"));
+    //
+    //
+    //     $username = $user["username"];
+    //
+    //     var_dump($username);
+    //     $deleteTags = [];
+    //
+    //     $userQuestion = $question->findAllWhere("username = ?", $username);
+    //
+    //     foreach ($userQuestion as $value) {
+    //         $qId = $value->id;
+    //         $userTags = $tags->findAllWhere("tag_question_id = ?", $qId);
+    //         if ($userTags) {
+    //             foreach ($userTags as $value) {
+    //                 array_push($deleteTags, $value->id);
+    //             }
+    //         }
+    //     }
+    //     var_dump($userQuestion);
+    //     var_dump($deleteTags);
+    //
+    //     // $qId =
+    //     // $dbTags = $tags->find("tag_question_id", $dbQuestion->id);
+    //     // var_dump($dbTags);
+    //
+    //
+    //
+    //     $form = new DeleteUserForm($this->di, $id);
+    //     $form->check();
+    //
+    //     $page->add("user/crud/delete", [
+    //         "form" => $form->getHTML(),
+    //     ]);
+    //
+    //     return $page->render([
+    //         "title" => "Delete an item",
+    //     ]);
+    // }
 
     /**
      * Handler with form to delete an item.

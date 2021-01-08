@@ -26,7 +26,7 @@ class UserController implements ContainerInjectableInterface
      * @var $data description
      */
     private $session;
-    private $gravatar;
+    private $page;
 
 
 
@@ -40,30 +40,7 @@ class UserController implements ContainerInjectableInterface
     public function initialize() : void
     {
         $this->session = $this->di->get("session");
-        $this->gravatar = $this->di->get("gravatar");
-    }
-
-    /**
-     * Show all items.
-     *
-     * @return object as a response object
-     */
-    public function indexActionGet() : object
-    {
-        $page = $this->di->get("page");
-        $user = new User();
-        $user->setDb($this->di->get("dbqb"));
-        $gravatar = $this->gravatar;
-
-        // var_dump($this->di->session->get("user"));
-        $page->add("user/crud/view-all", [
-            "items" => $user->findAll(),
-            "gravatar" => $gravatar,
-        ]);
-
-        return $page->render([
-            "title" => "A collection of items",
-        ]);
+        $this->page = $this->di->get("page");
     }
 
     /**
@@ -83,7 +60,7 @@ class UserController implements ContainerInjectableInterface
             $this->di->get("response")->redirect("")->send();
         }
 
-        $page = $this->di->get("page");
+        $page = $this->page;
         $form = new UserLoginForm($this->di);
         $form->check();
 
@@ -96,8 +73,6 @@ class UserController implements ContainerInjectableInterface
         ]);
     }
 
-
-
     /**
      * Description.
      *
@@ -109,7 +84,7 @@ class UserController implements ContainerInjectableInterface
      */
     public function createAction() : object
     {
-        $page = $this->di->get("page");
+        $page = $this->page;
         $form = new CreateUserForm($this->di);
         $form->check();
 
@@ -129,19 +104,17 @@ class UserController implements ContainerInjectableInterface
      */
     public function deleteAction() : object
     {
-        $page = $this->di->get("page");
+        $page = $this->page;
         $user = $this->session->get("user", null);
 
         if (!$user) {
             $this->di->get("response")->redirect("user/login")->send();
         }
 
-        $id = isset($user) ? $user["id"] : null;
+        $id = $user["id"];
+
         $form = new DeleteUserForm($this->di, $id);
         $form->check();
-
-        // var_dump($this->di->session->get("user"));
-        // $this->di->get("session")->set("user", null);
 
         $page->add("user/crud/delete", [
             "form" => $form->getHTML(),
@@ -151,8 +124,6 @@ class UserController implements ContainerInjectableInterface
             "title" => "Delete an item",
         ]);
     }
-
-
 
     /**
      * Handler with form to update an item.
@@ -170,53 +141,19 @@ class UserController implements ContainerInjectableInterface
         }
 
         $id = isset($user) ? $user["id"] : null;
+        $username = isset($user) ? $user["username"] : null;
 
-        $page = $this->di->get("page");
+        $page = $this->page;
         $form = new UpdateUserForm($this->di, $id);
         $form->check();
 
         $page->add("user/crud/update", [
             "form" => $form->getHTML(),
+            "username" => $username,
         ]);
 
         return $page->render([
             "title" => "Update an item",
-        ]);
-    }
-
-    /**
-     * Userpage
-     *
-     * @param int $id the id to update.
-     *
-     * @return void
-     */
-    public function userPageAction($username) : object
-    {
-        $page = $this->di->get("page");
-        $user = new User();
-        $user->setDb($this->di->get("dbqb"));
-        $gravatar = $this->gravatar;
-
-        if (!$user) {
-            $this->di->get("response")->redirect("user/login")->send();
-        }
-
-        $currentUser = $user->checkLoggedInUser($this->di, $username);
-
-        if ($currentUser) {
-            $userPage = "user/userpageadmin";
-        } else {
-            $userPage = "user/userpage";
-        }
-
-        $page->add($userPage, [
-            "items" => $user->find("username", $username),
-            "gravatar" => $gravatar->getGravatar($user->email),
-        ]);
-
-        return $page->render([
-            "title" => "A collection of items",
         ]);
     }
 

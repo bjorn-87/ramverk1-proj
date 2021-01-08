@@ -1,0 +1,52 @@
+/**
+ * Layout for responsive style through media queries.
+ */
+
+
+/**
+ * Responsive 1,2,3 column layout.
+ */
+
+@media screen and (max-width: 1000px) {
+    .region-main {
+        #desinax-vgrid.column(@columns - 2);
+        #desinax-vgrid.push(1);
+
+        &.has-sidebar-left.has-sidebar-left {
+            #desinax-vgrid.column(@columns - 2);
+            #desinax-vgrid.push(1);
+        }
+    }
+
+    .region-sidebar-right,
+    .region-sidebar-left {
+        #desinax-vgrid.column(@columns - 2);
+        #desinax-vgrid.push(1);
+    }
+
+    .region-sidebar-left.has-sidebar-right,
+    .region-sidebar-right.has-sidebar-left {
+        #desinax-vgrid.column(@columns - 2);
+        #desinax-vgrid.push(1);
+    }
+
+    .region-main.has-sidebar-right {
+        #desinax-vgrid.column(@columns - 2);
+        #desinax-vgrid.push(1);
+    }
+}
+
+
+@media screen and (max-width: 650px) {
+    .footer-column {
+        #desinax-vgrid.column(@columns);
+    }
+
+    .figure.right img {
+        margin-bottom: 1em;
+    }
+
+    .stylechooser code {
+        display: none;
+    }
+}
