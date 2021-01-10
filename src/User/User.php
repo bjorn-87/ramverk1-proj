@@ -59,4 +59,23 @@ class User extends ActiveRecordModel
         $this->find("username", $username);
         return password_verify($password, $this->password);
     }
+
+    /**
+     * Verify the logged in user.
+     *
+     * @param string $username acronym to check.
+     *
+     * @return boolean true if username and $_SESSION["user"]["username"] matches, else false.
+     */
+    public function checkLoggedInUser($di, $username) : bool
+    {
+        $user = $di->session->get("user", null);
+
+        if (isset($user)) {
+            if ($user["username"] === $username) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

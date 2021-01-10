@@ -2,12 +2,12 @@
 
 namespace Bjos\Question;
 
-use Anax\DatabaseActiveRecord\ActiveRecordModel;
+use Bjos\MyActiveRecordModel\MyActiveRecordModel;
 
 /**
  * A database driven model using the Active Record design pattern.
  */
-class Question extends ActiveRecordModel
+class Question extends MyActiveRecordModel
 {
     /**
      * @var string $tableName name of the database table.
@@ -27,4 +27,6 @@ class Question extends ActiveRecordModel
     public $text;
     public $vote;
     public $created;
+    public $updated;
+    public $deleted;
 }

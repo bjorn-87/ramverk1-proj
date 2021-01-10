@@ -41,7 +41,7 @@ class UserPageController implements ContainerInjectableInterface
         $this->session = $this->di->get("session");
         $this->gravatar = $this->di->get("gravatar");
         $this->user = $this->di->get("user");
-        $this->userpage = new UserPage($this->di);
+        // $this->userpage = new UserPage($this->di);
     }
 
     /**
@@ -82,10 +82,10 @@ class UserPageController implements ContainerInjectableInterface
         $gravatar = $this->gravatar;
 
         if (!$user) {
-            $this->di->get("response")->redirect("user/login")->send();
+            return $this->di->get("response")->redirect("user/login")->send();
         }
 
-        $currentUser = $this->userpage->checkLoggedInUser($username);
+        $currentUser = $this->user->checkLoggedInUser($this->di, $username);
 
         if ($currentUser) {
             $userPage = "userpage/userpageadmin";

@@ -25,21 +25,23 @@ class TagsController implements ContainerInjectableInterface
     /**
      * @var $data description
      */
-    //private $data;
+    private $question;
 
 
 
-    // /**
-    //  * The initialize method is optional and will always be called before the
-    //  * target method/action. This is a convienient method where you could
-    //  * setup internal properties that are commonly used by several methods.
-    //  *
-    //  * @return void
-    //  */
-    // public function initialize() : void
-    // {
-    //     ;
-    // }
+    /**
+     * The initialize method is optional and will always be called before the
+     * target method/action. This is a convienient method where you could
+     * setup internal properties that are commonly used by several methods.
+     *
+     * @return void
+     */
+    public function initialize() : void
+    {
+        $this->question = $this->di->get("question");
+        $this->user = $this->di->get("user");
+        $this->session = $this->di->get("session");
+    }
 
 
 
@@ -55,7 +57,57 @@ class TagsController implements ContainerInjectableInterface
         $tags->setDb($this->di->get("dbqb"));
 
         $page->add("tags/crud/view-all", [
-            "items" => $tags->findAll(),
+            "items" => $tags->findAllSelectParam("DISTINCT text"),
+        ]);
+
+        return $page->render([
+            "title" => "A collection of items",
+        ]);
+    }
+
+    /**
+     * Show all items.
+     *
+     * @return object as a response object
+     */
+    public function tagActionGet() : object
+    {
+        $request = $this->di->get("request");
+        $tag = $request->getGet("name");
+        $page = $this->di->get("page");
+        $tags = new Tags();
+        $tags->setDb($this->di->get("dbqb"));
+        $question = $this->question;
+        $question->setDb($this->di->get("dbqb"));
+
+        $tagsFound = $tags->findAllWhere("text = ? AND DELETED IS NULL", $tag);
+        // var_dump($tagsFound);
+
+        $foundQuestions = [];
+
+        if (isset($tagsFound)) {
+            foreach ($tagsFound as $value) {
+                // var_dump($value->tagquestionid);
+                $question->findWhere("id = ? AND DELETED IS NULL", $value->tagquestionid);
+                $res = [
+                    "id" => $question->id,
+                    "username" => $question->username,
+                    "title" => $question->title,
+                    "text" => $question->text,
+                    "vote" => $question->vote,
+                    "created" => $question->created,
+                ];
+                // var_dump($question);
+
+                array_push($foundQuestions, $res);
+                // var_dump($foundQuestions);
+                // $question = null;
+            }
+        }
+
+        $page->add("tags/tag", [
+            "title" => $tag,
+            "items" => $foundQuestions,
         ]);
 
         return $page->render([
@@ -70,10 +122,20 @@ class TagsController implements ContainerInjectableInterface
      *
      * @return object as a response object
      */
-    public function createAction() : object
+    public function createAction(int $id) : object
     {
+        $question = $this->question;
+        $question->setDb($this->di->get("dbqb"));
+        $quest = $question->find("id", $id);
+
+        $validate = $this->user->checkLoggedInUser($this->di, $quest->username);
+
+        if (!$validate) {
+            return $this->di->get("response")->redirect("user/login")->send();
+        }
+
         $page = $this->di->get("page");
-        $form = new CreateForm($this->di);
+        $form = new CreateForm($this->di, $id);
         $form->check();
 
         $page->add("tags/crud/create", [
@@ -92,10 +154,20 @@ class TagsController implements ContainerInjectableInterface
      *
      * @return object as a response object
      */
-    public function deleteAction() : object
+    public function deleteAction(int $id) : object
     {
+        $question = $this->question;
+        $question->setDb($this->di->get("dbqb"));
+        $quest = $question->find("id", $id);
+
+        $validate = $this->user->checkLoggedInUser($this->di, $quest->username);
+
+        if (!$validate) {
+            return $this->di->get("response")->redirect("user/login")->send();
+        }
+
         $page = $this->di->get("page");
-        $form = new DeleteForm($this->di);
+        $form = new DeleteForm($this->di, $id);
         $form->check();
 
         $page->add("tags/crud/delete", [
@@ -108,26 +180,26 @@ class TagsController implements ContainerInjectableInterface
     }
 
 
-
-    /**
-     * Handler with form to update an item.
-     *
-     * @param int $id the id to update.
-     *
-     * @return object as a response object
-     */
-    public function updateAction(int $id) : object
-    {
-        $page = $this->di->get("page");
-        $form = new UpdateForm($this->di, $id);
-        $form->check();
-
-        $page->add("tags/crud/update", [
-            "form" => $form->getHTML(),
-        ]);
-
-        return $page->render([
-            "title" => "Update an item",
-        ]);
-    }
+    //
+    // /**
+    //  * Handler with form to update an item.
+    //  *
+    //  * @param int $id the id to update.
+    //  *
+    //  * @return object as a response object
+    //  */
+    // public function updateAction(int $id) : object
+    // {
+    //     $page = $this->di->get("page");
+    //     $form = new UpdateForm($this->di, $id);
+    //     $form->check();
+    //
+    //     $page->add("tags/crud/update", [
+    //         "form" => $form->getHTML(),
+    //     ]);
+    //
+    //     return $page->render([
+    //         "title" => "Update an item",
+    //     ]);
+    // }
 }

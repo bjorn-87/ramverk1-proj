@@ -57,7 +57,7 @@ class UserController implements ContainerInjectableInterface
         $loggedIn = $this->session->get("user");
 
         if (isset($loggedIn)) {
-            $this->di->get("response")->redirect("")->send();
+            return $this->di->get("response")->redirect("")->send();
         }
 
         $page = $this->page;
@@ -108,10 +108,10 @@ class UserController implements ContainerInjectableInterface
         $user = $this->session->get("user", null);
 
         if (!$user) {
-            $this->di->get("response")->redirect("user/login")->send();
+            return $this->di->get("response")->redirect("user/login")->send();
         }
 
-        $id = $user["id"];
+        $id = isset($user) ? $user["id"] : null;
 
         $form = new DeleteUserForm($this->di, $id);
         $form->check();
@@ -137,7 +137,7 @@ class UserController implements ContainerInjectableInterface
         $user = $this->session->get("user", null);
 
         if (!$user) {
-            $this->di->get("response")->redirect("user/login")->send();
+            return $this->di->get("response")->redirect("user/login")->send();
         }
 
         $id = isset($user) ? $user["id"] : null;
@@ -164,7 +164,7 @@ class UserController implements ContainerInjectableInterface
      */
     public function logoutAction()
     {
-        $this->di->session->set("user", null);
-        $this->di->get("response")->redirect("")->send();
+        $this->di->session->delete("user");
+        return $this->di->get("response")->redirect("")->send();
     }
 }

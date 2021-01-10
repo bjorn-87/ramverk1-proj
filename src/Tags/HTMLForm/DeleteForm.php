@@ -16,9 +16,10 @@ class DeleteForm extends FormModel
      *
      * @param Psr\Container\ContainerInterface $di a service container
      */
-    public function __construct(ContainerInterface $di)
+    public function __construct(ContainerInterface $di, $id)
     {
         parent::__construct($di);
+        $this->id = $id;
         $this->form->create(
             [
                 "id" => __CLASS__,
@@ -28,7 +29,7 @@ class DeleteForm extends FormModel
                 "select" => [
                     "type"        => "select",
                     "label"       => "Select item to delete:",
-                    "options"     => $this->getAllItems(),
+                    "options"     => $this->getAllItems($id),
                 ],
 
                 "submit" => [
@@ -47,14 +48,14 @@ class DeleteForm extends FormModel
      *
      * @return array with key value of all items.
      */
-    protected function getAllItems() : array
+    protected function getAllItems($id) : array
     {
         $tags = new Tags();
         $tags->setDb($this->di->get("dbqb"));
 
         $tagss = ["-1" => "Select an item..."];
-        foreach ($tags->findAll() as $obj) {
-            $tagss[$obj->id] = "{$obj->column1} ({$obj->id})";
+        foreach ($tags->findAllWhere("tagquestionid = ?", [$id]) as $obj) {
+            $tagss[$obj->id] = "{$obj->text} ({$obj->id})";
         }
 
         return $tagss;
@@ -86,7 +87,7 @@ class DeleteForm extends FormModel
      */
     public function callbackSuccess()
     {
-        $this->di->get("response")->redirect("tags")->send();
+        $this->di->get("response")->redirect("question/update/{$this->id}")->send();
     }
 
 

@@ -16,7 +16,7 @@ class CreateForm extends FormModel
      *
      * @param Psr\Container\ContainerInterface $di a service container
      */
-    public function __construct(ContainerInterface $di)
+    public function __construct(ContainerInterface $di, $id)
     {
         parent::__construct($di);
         $this->form->create(
@@ -25,13 +25,15 @@ class CreateForm extends FormModel
                 "legend" => "Details of the item",
             ],
             [
-                "id" => [
-                    "type" => "text",
+                "questionid" => [
+                    "type" => "hidden",
                     "validation" => ["not_empty"],
+                    "value" => $id,
                 ],
 
                 "text" => [
                     "type" => "text",
+                    "placeholder" => "Skriv in tagg/taggar separera med mellanslag",
                     "validation" => ["not_empty"],
                 ],
 
@@ -54,11 +56,18 @@ class CreateForm extends FormModel
      */
     public function callbackSubmit() : bool
     {
-        $tags = new Tags();
-        $tags->setDb($this->di->get("dbqb"));
-        $tags->id  = $this->form->value("id");
-        $tags->text = $this->form->value("text");
-        $tags->save();
+        $questionId = $this->form->value("questionid");
+        $text = $this->form->value("text");
+        $textArray = explode(" ", $text);
+
+        foreach ($textArray as $value) {
+            $tags = new Tags();
+            $tags->setDb($this->di->get("dbqb"));
+            $tags->tagquestionid  = $questionId;
+            $tags->text  = $value;
+            $tags->save();
+        }
+
         return true;
     }
 

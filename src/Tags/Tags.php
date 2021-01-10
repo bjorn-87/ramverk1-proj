@@ -2,12 +2,12 @@
 
 namespace Bjos\Tags;
 
-use Anax\DatabaseActiveRecord\ActiveRecordModel;
+use Bjos\MyActiveRecordModel\MyActiveRecordModel;
 
 /**
  * A database driven model using the Active Record design pattern.
  */
-class Tags extends ActiveRecordModel
+class Tags extends MyActiveRecordModel
 {
     /**
      * @var string $tableName name of the database table.
@@ -24,4 +24,7 @@ class Tags extends ActiveRecordModel
     public $id;
     public $tagquestionid;
     public $text;
+    public $created;
+    public $updated;
+    public $deleted;
 }

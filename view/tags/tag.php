@@ -13,22 +13,25 @@ namespace Anax\View;
 $items = isset($items) ? $items : null;
 
 // Create urls for navigation
+$urlToCreate = url("tags/create");
+$urlToDelete = url("tags/delete");
 
 // var_dump($items);
 
-?><h1>Alla taggar</h1>
+
+?><h1>Frågor taggade med [<?= htmlentities($title) ?>]</h1>
 
 <?php if (!$items) : ?>
-    <p>There are no items to show.</p>
+    <p>Det finns inga frågor taggade med <b><?= htmlentities($title) ?></b>.</p>
     <?php
     return;
 endif;
 ?>
-
 <article>
     <?php foreach ($items as $item) : ?>
         <div class="" style="border: 1px solid black; padding: 0.5em; margin-bottom: 0.5em;">
-            <a href="<?= url("tags/tag?name={$item->text}"); ?>"><?= $item->text ?></a>
+            <a href="<?= url("question/quest/{$item["id"]}"); ?>"><?= $item["title"] ?></a>
+            <?= $item["username"] ?></td>
         </div>
     <?php endforeach; ?>
 </article>

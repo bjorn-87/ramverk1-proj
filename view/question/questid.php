@@ -13,10 +13,11 @@ namespace Anax\View;
 $items = isset($items) ? $items : null;
 
 // Create urls for navigation
-
+// $urlToCreate = url("question/create");
+// $urlToDelete = url("question/delete");
 // var_dump($items);
 
-?><h1>Alla taggar</h1>
+?><h1>En fråga</h1>
 
 <?php if (!$items) : ?>
     <p>There are no items to show.</p>
@@ -26,9 +27,6 @@ endif;
 ?>
 
 <article>
-    <?php foreach ($items as $item) : ?>
-        <div class="" style="border: 1px solid black; padding: 0.5em; margin-bottom: 0.5em;">
-            <a href="<?= url("tags/tag?name={$item->text}"); ?>"><?= $item->text ?></a>
-        </div>
-    <?php endforeach; ?>
+    <div class="pageButton">Antal per sida:
+    </div>
 </article>

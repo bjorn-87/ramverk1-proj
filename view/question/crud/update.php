@@ -11,16 +11,23 @@ namespace Anax\View;
 
 // Gather incoming variables and use default values if not set
 $item = isset($item) ? $item : null;
+$id = isset($id) ? $id : null;
 
 // Create urls for navigation
-$urlToView = url("question");
+$urlToView = url("question/questid/{$id}");
+$urlToCreateTag = url("tags/create/{$id}");
+$urlToDeleteTag = url("tags/delete/{$id}");
 
-
+// var_dump($form);
 
 ?><h1>Update an item</h1>
 
 <?= $form ?>
 
+<p>
+    <a href="<?= $urlToCreateTag ?>">Skapa tagg</a>
+    <a href="<?= $urlToDeleteTag ?>">Radera tagg</a>
+</p>
 <p>
     <a href="<?= $urlToView ?>">View all</a>
 </p>

@@ -12,7 +12,7 @@ namespace Anax\View;
 // Gather incoming variables and use default values if not set
 $items = isset($items) ? $items : null;
 
-?><h1>View all items</h1>
+?><h1>Alla användare</h1>
 
 <?php if (!$items) : ?>
     <p>There are no items to show.</p>
