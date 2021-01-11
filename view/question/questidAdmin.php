@@ -10,16 +10,14 @@ namespace Anax\View;
 //echo showEnvironment(get_defined_vars());
 
 // Gather incoming variables and use default values if not set
-$items = isset($items) ? $items : null;
+$id = isset($id) ? $id : null;
 
-// Create urls for navigation
-// $urlToCreate = url("question/create");
-// $urlToDelete = url("question/delete");
-// var_dump($items);
+$urlToUpdate = url("question/update/{$id}");
+$urlToDelete = url("question/delete/{$id}");
 
-?><h1>En Admin fråga</h1>
+?>
 
-<?php if (!$items) : ?>
+<?php if (!$id) : ?>
     <p>There are no items to show.</p>
     <?php
     return;
@@ -27,6 +25,8 @@ endif;
 ?>
 
 <article>
-    <div class="pageButton">Antal per sida:
+    <div class="pageButton">
+        <a href="<?= $urlToUpdate ?>">Uppdatera</a>
+        <a href="<?= $urlToDelete ?>">Radera</a>
     </div>
 </article>

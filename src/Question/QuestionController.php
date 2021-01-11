@@ -7,6 +7,14 @@ use Anax\Commons\ContainerInjectableTrait;
 use Bjos\Question\HTMLForm\CreateQuestionForm;
 use Bjos\Question\HTMLForm\DeleteQuestionForm;
 use Bjos\Question\HTMLForm\UpdateQuestionForm;
+use Bjos\Answer\HTMLForm\CreateAnswerForm;
+use Bjos\Answer\HTMLForm\DeleteAnswerForm;
+use Bjos\Answer\HTMLForm\UpdateAnswerForm;
+// use Bjos\Comment\HTMLForm\CreateCommentForm;
+// use Bjos\Comment\HTMLForm\DeleteCommentForm;
+// use Bjos\Comment\HTMLForm\UpdateCommentForm;
+use Bjos\Comment\AnswerComment;
+use Bjos\Comment\QuestionComment;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -42,6 +50,7 @@ class QuestionController implements ContainerInjectableInterface
         $this->tags = $this->di->get("tags");
         $this->session = $this->di->get("session");
         $this->user = $this->di->get("user");
+        $this->answer = $this->di->get("answer");
         $this->title = "Ändras";
     }
 
@@ -76,32 +85,26 @@ class QuestionController implements ContainerInjectableInterface
             return $this->di->get("response")->redirect("question")->send();
         }
         $offset = $limit * ($paginate - 1);
-        //
-        // var_dump($_GET);
-        // var_dump($_SESSION);
-        // $items = $question->findAllWhere("DELETED IS NULL", []);
+
         $items = $question->findAllPaginate($limit, $offset);
         $data = [];
 
-        // var_dump($max);
         if ($items) {
             foreach ($items as $value) {
                 array_push($data, [
                     "id" => $value->id,
-                    "username" => $value->username,
+                    "username" => $this->textfilter->parse($value->username, ["purify"]),
                     "title" => $this->textfilter->parse($value->title, ["purify"]),
                     "text" => $this->textfilter->parse($value->text, ["purify", "markdown"]),
                     "vote" => $value->vote,
+                    "answers" => $value->answers,
                     "created" => $value->created,
                     "updated" => $value->updated,
                     "deleted" => $value->deleted,
                     "tags" => $tags->findAllWhere("tagquestionid = ? AND DELETED IS NULL", $value->id),
                 ]);
-                // var_dump($value->id);
-                // $items[$key]->text = ($this->textfilter->parse($value, ["markdown"]));
             }
         }
-        // var_dump($data);
 
         $page->add("question/crud/view-all", [
             "items" => $data,
@@ -119,28 +122,80 @@ class QuestionController implements ContainerInjectableInterface
      *
      * @return object as a response object
      */
-    public function questidActionGet(int $questid) : object
+    public function questidAction(int $questid) : object
     {
-        // $request = $this->di->get("request");
         $page = $this->di->get("page");
+        $user = $this->session->get("user");
 
+        // Get Question
         $question = new Question();
         $question->setDb($this->di->get("dbqb"));
         $quest = $question->find("id", $questid);
 
+        // Get Tags
+        $tags = $this->tags;
+        $tags->setDb($this->di->get("dbqb"));
+        $allTags = $tags->findAllNotDeleted("tagquestionid = ?", $questid);
+
+        $items = [
+            "id" => $quest->id,
+            "username" => $this->textfilter->parse($quest->username, ["purify"])->text,
+            "title" => $this->textfilter->parse($quest->title, ["purify"])->text,
+            "text" => $this->textfilter->parse($quest->text, ["purify", "markdown"])->text,
+            "vote" => $quest->vote,
+            "answers" => $quest->answers,
+            "created" => $quest->created,
+            "updated" => $quest->updated,
+        ];
+
         $validate = $this->user->checkLoggedInUser($this->di, $quest->username);
 
-        $addPage = $validate ? "question/questidAdmin" : "question/questid";
+        // Get Answers
+        $answer = $this->answer;
+        $answer->setDb($this->di->get("dbqb"));
+        $answers = $answer->findAllNotDeleted("questionid = ?", $questid);
 
-        // $question = new Question();
-        // $question->setDb($this->di->get("dbqb"));
-        // $tags = $this->tags;
-        // $tags->setDb($this->di->get("dbqb"));
-        $data = [];
+        // Get Questioncomment
+        $qComment = new QuestionComment();
+        $qComment->setDb($this->di->get("dbqb"));
+        $qComments = $qComment->findAllNotDeleted("commentquestionid = ?", $questid);
 
-        $page->add($addPage, [
-            "items" => $data,
+        $qComments = $question->markdownParse($this->di, $qComments, ["purify", "markdown"]);
+
+        // Get Answercomment
+        foreach ($answers as $ans) {
+            $aComment = new AnswerComment();
+            $aComment->setDb($this->di->get("dbqb"));
+            $ans->aComment = $aComment->findAllNotDeleted("answerid = ?", $ans->id);
+            $ans->text = $this->textfilter->parse($ans->text, ["purify", "markdown"])->text;
+            $ans->aComment = $question->markdownParse($this->di, $ans->aComment, ["purify", "markdown"]);
+        }
+
+        // var_dump($answers);
+
+        $page->add("question/questid", [
+            "items" => $items,
+            "answers" => $answers,
+            "qComments" => $qComments,
+            "tags" => $allTags,
+            "loggedIn" => isset($user) ? true : false,
+            "questId" => $questid,
         ]);
+
+        // Admin cannot answer its own question
+        if (isset($user) && !$validate) {
+            $answerForm = new CreateAnswerForm($this->di, $questid);
+            $answerForm->check();
+            $page->add("question/answerform", [
+                "answerForm" => $answerForm->getHTML(),
+            ]);
+        }
+
+        if ($validate) {
+            $page->add("question/questidAdmin", [
+                "id" => $questid,
+            ]);
+        }
 
         return $page->render([
             "title" => "A collection of items",
@@ -239,25 +294,25 @@ class QuestionController implements ContainerInjectableInterface
     //     ]);
     // }
 
-    /**
-     * Handler with form to delete an item.
-     *
-     * @return object as a response object
-     */
-    public function deleteAction() : object
-    {
-        $page = $this->di->get("page");
-        $form = new DeleteQuestionForm($this->di);
-        $form->check();
-
-        $page->add("question/crud/delete", [
-            "form" => $form->getHTML(),
-        ]);
-
-        return $page->render([
-            "title" => "Delete an item",
-        ]);
-    }
+    // /**
+    //  * Handler with form to delete an item.
+    //  *
+    //  * @return object as a response object
+    //  */
+    // public function deleteAction() : object
+    // {
+    //     $page = $this->di->get("page");
+    //     $form = new DeleteQuestionForm($this->di);
+    //     $form->check();
+    //
+    //     $page->add("question/crud/delete", [
+    //         "form" => $form->getHTML(),
+    //     ]);
+    //
+    //     return $page->render([
+    //         "title" => "Delete an item",
+    //     ]);
+    // }
 
 
 

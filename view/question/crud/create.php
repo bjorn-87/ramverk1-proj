@@ -17,10 +17,10 @@ $urlToViewItems = url("question");
 
 
 
-?><h1>Create a item</h1>
+?><h1>Ställ en fråga</h1>
 
 <?= $form ?>
 
 <p>
-    <a href="<?= $urlToViewItems ?>">View all</a>
+    <a href="<?= $urlToViewItems ?>">Tillbaka</a>
 </p>

@@ -26,6 +26,7 @@ $defaultRoute = "?";
     return;
 endif;
 ?>
+<a href="<?= $urlToCreate ?>">Ställ fråga</a>
 
 <article>
     <div class="pageButton">Antal per sida:
@@ -37,7 +38,8 @@ endif;
         <div class="" style="border: 1px solid black; margin-bottom: 0.5em; padding: 0.5em;">
             <div class="">
                 Röster: <?= $item["vote"]?>
-                <p>Frågad av: <a href="<?= url("userpage/user/{$item["username"]}"); ?>"><?= $item["username"] ?></a></p>
+                Svar: <?= $item["answers"]?>
+                <p>Frågad av: <a href="<?= url("userpage/user/{$item["username"]->text}"); ?>"><?= $item["username"]->text ?></a></p>
             </div>
             <h2><a href="<?= url("question/questid/{$item["id"]}"); ?>"><?= $item["title"]->text ?></a></h2>
             <?= substr($item["text"]->text, 0, 50) ?>...<br><a href="<?= url("question/questid/{$item["id"]}"); ?>">Läs mer</a><br>

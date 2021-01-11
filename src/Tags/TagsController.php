@@ -81,7 +81,6 @@ class TagsController implements ContainerInjectableInterface
         $question->setDb($this->di->get("dbqb"));
 
         $tagsFound = $tags->findAllWhere("text = ? AND DELETED IS NULL", $tag);
-        // var_dump($tagsFound);
 
         $foundQuestions = [];
 
@@ -97,11 +96,9 @@ class TagsController implements ContainerInjectableInterface
                     "vote" => $question->vote,
                     "created" => $question->created,
                 ];
-                // var_dump($question);
+
 
                 array_push($foundQuestions, $res);
-                // var_dump($foundQuestions);
-                // $question = null;
             }
         }
 
@@ -146,8 +143,6 @@ class TagsController implements ContainerInjectableInterface
             "title" => "Create a item",
         ]);
     }
-
-
 
     /**
      * Handler with form to delete an item.

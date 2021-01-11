@@ -45,9 +45,19 @@ class UpdateQuestionForm extends FormModel
                 ],
 
                 "text" => [
-                    "type" => "text",
+                    "type" => "textarea",
                     "validation" => ["not_empty"],
                     "value" => $quest->text,
+                ],
+
+                "answers" => [
+                    "type" => "hidden",
+                    "value" => $quest->answers,
+                ],
+
+                "created" => [
+                    "type" => "hidden",
+                    "value" => $quest->created,
                 ],
 
                 "tags" => [
@@ -132,6 +142,8 @@ class UpdateQuestionForm extends FormModel
         $question->username  = $this->form->value("username");
         $question->title  = $this->form->value("title");
         $question->text = $this->form->value("text");
+        $question->created = $this->form->value("created");
+        $question->answers = $this->form->value("answers");
         $question->updated = date('Y-m-d H:i:s');
         $question->save();
 

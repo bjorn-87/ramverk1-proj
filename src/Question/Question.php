@@ -26,7 +26,23 @@ class Question extends MyActiveRecordModel
     public $title;
     public $text;
     public $vote;
+    public $answers;
     public $created;
     public $updated;
     public $deleted;
+
+
+
+    /**
+     *
+     *
+     *
+     */
+    public function markdownParse($di, $object, $filter)
+    {
+        foreach ($object as $value) {
+            $value->text = $di->textfilter->parse($value->text, $filter)->text;
+        }
+        return $object;
+    }
 }

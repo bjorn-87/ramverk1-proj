@@ -19,7 +19,7 @@ $items = isset($items) ? $items : null;
 ?><h1>Alla taggar</h1>
 
 <?php if (!$items) : ?>
-    <p>There are no items to show.</p>
+    <p>Finns inga taggar.</p>
     <?php
     return;
 endif;

@@ -23,7 +23,7 @@ class CreateQuestionForm extends FormModel
         $this->form->create(
             [
                 "id" => __CLASS__,
-                "legend" => "Details of the item",
+                "legend" => "Ställ fråga",
             ],
             [
                 "username" => [
@@ -37,17 +37,18 @@ class CreateQuestionForm extends FormModel
                 ],
 
                 "text" => [
-                    "type" => "text",
+                    "type" => "textarea",
                     "validation" => ["not_empty"],
                 ],
 
                 "tags" => [
                     "type" => "text",
+                    "placeholder" => "Skriv in taggens/taggarnas namn separerade med mellanslag"
                 ],
 
                 "submit" => [
                     "type" => "submit",
-                    "value" => "Create item",
+                    "value" => "Skicka",
                     "callback" => [$this, "callbackSubmit"]
                 ],
             ]
@@ -71,17 +72,10 @@ class CreateQuestionForm extends FormModel
         $question->username  = $this->form->value("username");
         $question->text = $this->form->value("text");
         $question->vote = 0;
+        $question->answers = 0;
         $question->created = date('Y-m-d H:i:s');
 
         $question->save();
-
-        // var_dump($tags);
-        // $question->checkDb();
-        // $question->db->connect()
-        //          ->select("MAX(id) as id")
-        //          ->from($question->tableName)
-        //          ->execute()
-        //          ->fetchInto($max);
 
         $questionId = $question->findMax();
         foreach ($tags as $value) {
