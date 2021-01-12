@@ -1,3 +1,3 @@
-#### Footer col 3
+#### ConsoleOverflow
 
-Med brödtext i ett stycke som säger något trevligt om just detta block, eller kanske en lista av länkar.
+"En sida skapad av spelälskare för spelälskare"

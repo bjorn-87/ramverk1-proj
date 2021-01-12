@@ -1,3 +1,2 @@
-#### Footer col 2
 
-Med brödtext i ett stycke som säger något trevligt om just detta block, eller kanske en lista av länkar.
+[FIGURE src=image/controller.png?w=100 class="center controller"]

@@ -26,7 +26,7 @@ endif;
 
 <article>
     <div class="pageButton">
-        <a href="<?= $urlToUpdate ?>">Uppdatera</a>
-        <a href="<?= $urlToDelete ?>">Radera</a>
+        <a class="askQuestion" href="<?= $urlToUpdate ?>">Uppdatera</a>
+        <a class="delete" href="<?= $urlToDelete ?>">Radera</a>
     </div>
 </article>

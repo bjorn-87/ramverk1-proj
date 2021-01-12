@@ -16,6 +16,7 @@ $qComments = isset($qComments) ? $qComments : null;
 $aComments = isset($aComments) ? $aComments : null;
 $deleted = isset($items["deleted"]) ? true : false;
 
+$answerCount = 1;
 // Create urls for navigation
 
 // $urlToUSerPage = ;
@@ -37,23 +38,22 @@ endif;
         <h1>Raderad: <?= $items["deleted"] ?></h1>
     <?php endif; ?>
 
-    <div>
-        <p>Fråga nummer: <?= esc($items["id"]) ?>
-        Frågad av: <a href="<?= url("userpage/user/{$items["username"]}"); ?>"><?= esc($items["username"]) ?></a></p>
+    <div class="questionBox">
+        <h3>Fråga nummer: <?= esc($items["id"]) ?></h3>
+        <p>Frågad av: <a href="<?= url("userpage/user/{$items["username"]}"); ?>"><?= esc($items["username"]) ?></a></p>
         <p><?= $items["text"] ?></p>
         <p>Svar: <?= esc($items["answers"]) ?></p>
         <p>Skapad: <?= esc($items["created"]) ?>
         <?=$items["updated"] ? "| Uppdaterad: " . esc($items["updated"]) : null ?></p>
         <?php foreach ($tags as $value) : ?>
-            <a href="<?= url("tags/tag?name={$value->text}"); ?>">#<?= esc($value->text) ?></a>
+            <div class="tagLink">
+                <a href="<?= url("tags/tag?name={$value->text}"); ?>">#<?= esc($value->text) ?></a>
+            </div>
         <?php endforeach; ?>
         <?php if ($loggedIn && !$deleted) : ?>
-            <a href="<?= url("comment/create?questid={$questId}&id={$items["id"]}&type=question") ?>">Kommentera</a>
+            <a class="askQuestion" href="<?= url("comment/create?questid={$questId}&id={$items["id"]}&type=question") ?>">Kommentera</a>
         <?php endif; ?>
-    </div>
 
-
-    <div class="">
         <h5>Kommmentarer:</h5>
         <?php foreach ($qComments as $value) : ?>
             <div class="" style="border-top: 1px solid black; padding: 0.5em;">
@@ -63,16 +63,16 @@ endif;
         </div>
         <?php endforeach; ?>
     </div>
-    <div class="pageButton">
+    <div class="questionBox">
         <?php foreach ($answers as $answer) : ?>
-            <div class="" style="border: 1px solid black; padding: 0.5em;">
-            <h4>Svar:</h4>
+            <div class="" >
+            <h3>Svar: <?= $answerCount++ ?></h3>
             <?= $answer->text ?>
 
             <a href="<?= url("userpage/user/{$answer->username}") ?>"><?= $answer->username ?></a>
             <?= $answer->created ?><br><br>
             <?php if ($loggedIn && !$deleted) : ?>
-                <a href="<?= url("comment/create?questid={$questId}&id={$answer->id}&type=answer") ?>">Kommentera</a>
+                <a class="askQuestion" href="<?= url("comment/create?questid={$questId}&id={$answer->id}&type=answer") ?>">Kommentera</a>
             <?php endif; ?>
 
                 <h5>Kommentarer:</h5>

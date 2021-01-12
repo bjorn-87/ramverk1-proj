@@ -18,7 +18,9 @@ if (isset($class)) {
 // Create urls for navigation
 $urlToCreate = url("user/create");
 
-?><article <?= classList($classes) ?>>
+?><h1>Logga in</h1>
+
+<article <?= classList($classes) ?>>
 <?= $content ?>
 <p>
     Inget konto? <a href="<?= $urlToCreate ?>">Skapa konto</a>

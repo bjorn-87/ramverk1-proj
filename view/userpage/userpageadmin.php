@@ -14,5 +14,5 @@ namespace Anax\View;
 
 // var_dump($items);
 // var_dump($gravatar);
-?><a href="<?= url("user/update/"); ?>">Uppdatera</a>
-<a href="<?= url("user/delete/"); ?>">Radera användare</a>
+?><a class="askQuestion" href="<?= url("user/update/"); ?>">Uppdatera</a>
+<a class="delete" href="<?= url("user/delete/"); ?>">Radera användare</a>

@@ -5219,6 +5219,7 @@ code {
   margin-right: 0.52083333%;
   margin-left: 13.02083333%;
   margin-bottom: 3rem;
+  min-height: 38em;
 }
 .region-main.has-sidebar {
   margin-left: 0.52083333%;
@@ -5341,6 +5342,22 @@ code {
   list-style-type: none;
   display: inline;
 }
+.forumlink a {
+  box-shadow: 1px 1px 10px 0 #999;
+  margin-bottom: 1em;
+  margin-top: 24px;
+  padding: 0.5em;
+  padding-left: 2em;
+  padding-right: 2em;
+  text-align: center;
+  text-decoration: none;
+  color: #222;
+  border-radius: 5px;
+}
+.forumlink a:hover {
+  background-color: #666;
+  color: white;
+}
 .breadcrumb-list ul {
   padding-top: 12px;
   padding-left: 0px;
@@ -5356,6 +5373,7 @@ code {
   padding-bottom: 1em;
   margin-bottom: 1em;
   margin-top: 24px;
+  border-radius: 5px;
 }
 .region-sidebar-right h4 {
   background-image: linear-gradient(to right, #fff, #ccc);
@@ -5369,7 +5387,7 @@ code {
 .breadcrumb-list a,
 .has-sidebar a,
 .next-previous a {
-  color: blue;
+  color: #00439C;
   text-decoration: none;
 }
 .has-sidebar a:hover,
@@ -5386,11 +5404,11 @@ code {
   float: right;
 }
 .inner-wrap-main {
-  background-color: #fbfbfb;
+  background-color: #eee;
   min-height: 600px;
 }
 .inner-wrap-breadcrumb {
-  background-color: #fbfbfb;
+  background-color: #eee;
 }
 .figure {
   margin-bottom: 24px;
@@ -5418,7 +5436,7 @@ code {
 }
 .block.toc a {
   text-decoration: none;
-  color: blue;
+  color: #00439C;
   margin: 16px 0 24px;
   padding-left: 24px;
 }
@@ -5439,7 +5457,7 @@ code {
   font-weight: 700;
 }
 .outer-wrap-footer {
-  background-color: #156bba;
+  background-color: #00439C;
   color: #e8e8e8;
   border-top: 1px solid #ccc;
 }
@@ -5452,6 +5470,9 @@ code {
   color: #ccc;
   margin-left: -1em;
   text-decoration: none;
+}
+.controller {
+  box-shadow: none;
 }
 .header-anchor:hover {
   display: block;
@@ -5478,7 +5499,7 @@ code {
  */
 /* Header */
 h1 {
-  color: #333;
+  color: #00439C;
 }
 .site-logo-text-icon {
   display: none;
@@ -5496,38 +5517,265 @@ h1 {
 .my-navbar a {
   font-size: 18px;
   padding: 0.5em;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .rm-button-face-1,
 .outer-wrap.outer-wrap-header a {
-  color: #fff;
+  color: #222;
 }
 .my-navbar a:hover {
-  color: #fff;
+  color: #222;
   text-decoration: underline;
-  text-shadow: -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222;
 }
 .rm-default .selected a,
 .rm-default .selected-parent a {
-  color: #fff;
+  color: #00439C;
   text-decoration: underline;
 }
 .outer-wrap-header {
-  background-color: #1e95a2;
+  background-color: #fff;
 }
 .site-logo {
   display: none;
 }
 .site-logo-text {
-  font-family: 'Orbitron', serif;
+  font-family: 'Goldman', cursive;
   font-size: 2em;
   padding-top: 1em;
   font-style: italic;
-  color: #fff;
+  color: #222;
   margin-left: 0.5em;
 }
 .rm-button-face-1 {
   font-size: 24px;
+}
+.questionBox {
+  margin: 0 auto;
+  box-sizing: border-box;
+  margin-bottom: 1.4rem;
+  box-shadow: 0 3px 5px 0 #999;
+  border-radius: 0.5rem;
+  padding: 1em;
+}
+.askQuestion {
+  color: #fff;
+  background-color: #00439C;
+  border: 1px solid #cccccc;
+  text-decoration: none;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 1.4rem;
+  padding: 0.4rem 1rem;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 1.4rem;
+  cursor: pointer;
+  width: 100%;
+}
+.delete {
+  color: #fff;
+  background-color: #ff3333;
+  border: 1px solid #cccccc;
+  text-decoration: none;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 1.4rem;
+  padding: 0.4rem 1rem;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 1.4rem;
+  cursor: pointer;
+  width: 100%;
+}
+.delete:hover {
+  background-color: #cc0000;
+}
+.askQuestion:hover {
+  background-color: #3a76c4;
+}
+.tagLink {
+  box-shadow: 1px 1px 10px 0 #999;
+  margin-bottom: 1em;
+  margin-right: 0.5em;
+  padding: 0.5em;
+  text-align: center;
+  border-radius: 5px;
+  width: fit-content;
+  display: inline-block;
+}
+.tagLink a {
+  color: #222;
+  text-decoration: none;
+}
+.tagLink a:hover {
+  color: white;
+}
+.tagLink:hover {
+  background-color: #666;
+}
+.userCard {
+  box-shadow: 1px 1px 10px 0 #999;
+  border-radius: 5px;
+  display: flex;
+  width: 200px;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-right: 1em;
+  overflow-wrap: break-word;
+}
+.userImg {
+  border-radius: 5px;
+}
+.usercardSpan {
+  display: inline-flex;
+}
+.userPageArticle {
+  display: flex;
+  flex-flow: wrap;
+}
+/*!
+ * Stylesheet for ramverk1 kmom01.
+ * kmom01_body
+ * This stylesheet is for the ramverk1 course and kmom01.
+ */
+.htmlform input[type=submit],
+.htmlform input[type=reset] {
+  color: #fff;
+  background-color: #00439C;
+  border: 1px solid #cccccc;
+  text-decoration: none;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 1.4rem;
+  padding: 0.4rem 1rem;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 1.4rem;
+  cursor: pointer;
+  width: 50%;
+}
+.htmlform input[type=submit]:hover,
+.htmlform input[type=reset]:hover {
+  background-color: #3a76c4;
+}
+.htmlform input[type=text] {
+  font-size: 1.4rem;
+  line-height: 1.4;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 0.2rem;
+  padding: 0.5rem 2rem;
+  box-sizing: border-box;
+  width: 50%;
+  margin-bottom: 1.4rem;
+  resize: none;
+}
+.htmlform input[type=password] {
+  font-size: 1.4rem;
+  line-height: 1.4;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 0.2rem;
+  padding: 0.5rem 2rem;
+  box-sizing: border-box;
+  width: 50%;
+  margin-bottom: 1.4rem;
+  resize: none;
+}
+.htmlform input[type=email] {
+  font-size: 1.4rem;
+  line-height: 1.4;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 0.2rem;
+  padding: 0.5rem 2rem;
+  box-sizing: border-box;
+  width: 50%;
+  margin-bottom: 1.4rem;
+  resize: none;
+}
+.htmlform textarea {
+  font-size: 1.4rem;
+  line-height: 1.4;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 0.2rem;
+  padding: 0.5rem 2rem;
+  box-sizing: border-box;
+  width: 50%;
+  margin-bottom: 1.4rem;
+  resize: vertical;
+}
+.htmlform label {
+  font-weight: bold;
+  margin: 1rem 0 0 0;
+  display: block;
+}
+.testRoutes input.valid {
+  background-color: #2eb82e;
+}
+.testRoutes input.valid:hover {
+  background-color: #1f7a1f;
+}
+.testRoutes input.notValid {
+  background-color: #ff3333;
+}
+.testRoutes input.notValid:hover {
+  background-color: #cc0000;
+}
+.ApiInstruction {
+  display: block;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  padding: 0.5em;
+}
+.validResult {
+  border: 1px solid #ccc;
+  background-color: #d7f4d7;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+}
+.notValidResult {
+  border: 1px solid #333;
+  background-color: #ffb3b3;
+  padding: 0.5em;
+  color: #222;
+  margin-bottom: 0.5em;
+}
+.countryFlag {
+  width: 400px;
+  border: 1px solid #444;
+}
+.validateIp th,
+.validateIp td {
+  text-align: center;
+}
+th,
+td {
+  white-space: nowrap;
+  padding: 0.8rem 1.6rem;
+}
+.right {
+  text-align: right;
+}
+tr:nth-of-type(2n) {
+  background-color: #ddd;
+}
+.table {
+  margin: 0 auto;
+  box-sizing: border-box;
+  border-collapse: collapse;
+  margin-bottom: 1.4rem;
+  box-shadow: 0 3px 5px 0 #999;
+  border-radius: 0.5rem;
+}
+.table .first {
+  padding-left: 1em;
+}
+.table .wrapping {
+  white-space: normal;
+  width: 250px;
 }
 /**
 * Layout style for general structure of header, navbar, main, footer
@@ -5539,7 +5787,7 @@ h1 {
 /**
  * Responsive 1,2,3 column layout.
  */
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1140px) {
   .region-main {
     display: inline;
     float: left;
@@ -5603,6 +5851,14 @@ h1 {
   }
   .validateIp input[type=submit],
   .validateIp input[type=text] {
+    width: 100%;
+  }
+  .htmlform input[type=submit],
+  .htmlform input[type=reset],
+  .htmlform input[type=password],
+  .htmlform input[type=text],
+  .htmlform input[type=email],
+  .htmlform textarea {
     width: 100%;
   }
   .table {
@@ -5734,7 +5990,7 @@ a.rm-button.rm-clicked .rm-button-face-2 {
  * Menu layout for the desktop variant, usually full width of browser.
  */
 .rm-desktop ul {
-  background-color: #1e95a2;
+  background-color: #fff;
 }
 .rm-desktop li {
   position: relative;
@@ -5745,10 +6001,10 @@ a.rm-button.rm-clicked .rm-button-face-2 {
 }
 .rm-desktop li a {
   color: inherit;
-  background-color: #1e95a2;
+  background-color: #fff;
 }
 .rm-desktop li a:hover {
-  color: #fff;
+  color: #222;
   background-color: inherit;
 }
 .rm-desktop li:hover > ul {
@@ -5825,7 +6081,7 @@ a.rm-button.rm-clicked .rm-button-face-2 {
   height: 500px;
   overflow-y: auto;
   padding-top: 72px;
-  background-color: #156bba;
+  background-color: #fff;
   /* Color when menu item is clicked */
   /* Button for submenu */
   /* Style for submenu */
@@ -5842,7 +6098,7 @@ a.rm-button.rm-clicked .rm-button-face-2 {
 .rm-max .rm-mobile .rm-submenu-button {
   float: right;
   box-shadow: 0px 0px 1px rgba(255, 255, 255, 0.4);
-  background-color: #156bba;
+  background-color: #00439C;
   padding: 8px 24px;
   margin-right: 8px;
   margin-top: 10px;
@@ -5875,7 +6131,7 @@ a.rm-button.rm-clicked .rm-button-face-2 {
 /**
   * Example on media queries
   */
-@media screen and (max-width: 845px) {
+@media screen and (max-width: 1140px) {
   .rm-small {
     display: block;
   }
@@ -6162,4 +6418,11 @@ figure.figure-codepen {
   font-weight: 400;
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFVZ0e.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Goldman';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/goldman/v1/pe0uMIWbN4JFplR2LDI.ttf) format('truetype');
 }

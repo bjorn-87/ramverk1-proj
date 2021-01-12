@@ -4,9 +4,10 @@
  * This stylesheet is for the ramverk1 course and kmom01.
  */
 
-.validateIp input[type=submit] {
+.htmlform input[type=submit],
+.htmlform input[type=reset] {
     color: #fff;
-    background-color: #1e95a2;
+    background-color: #00439C;
     border: 1px solid #cccccc;
     text-decoration: none;
     box-sizing: border-box;
@@ -20,7 +21,12 @@
     width: 50%;
 }
 
-.validateIp input[type=text] {
+.htmlform input[type=submit]:hover,
+.htmlform input[type=reset]:hover {
+    background-color: #3a76c4;
+}
+
+.htmlform input[type=text] {
     font-size: 1.4rem;
     line-height: 1.4;
     display: block;
@@ -33,7 +39,46 @@
     resize: none;
 }
 
-.validateIp label {
+.htmlform input[type=password] {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 0.2rem;
+    padding: 0.5rem 2rem;
+    box-sizing: border-box;
+    width: 50%;
+    margin-bottom: 1.4rem;
+    resize: none;
+}
+
+.htmlform input[type=email] {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 0.2rem;
+    padding: 0.5rem 2rem;
+    box-sizing: border-box;
+    width: 50%;
+    margin-bottom: 1.4rem;
+    resize: none;
+}
+
+.htmlform textarea {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 0.2rem;
+    padding: 0.5rem 2rem;
+    box-sizing: border-box;
+    width: 50%;
+    margin-bottom: 1.4rem;
+    resize: vertical;
+}
+
+.htmlform label {
     font-weight: bold;
     margin: 1rem 0 0 0;
     display: block;

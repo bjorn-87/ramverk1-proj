@@ -20,7 +20,7 @@ if (!$users && !$tags) {
 <div class="homepageIndex">
     <div class="block">
         <div class="product-list-item">
-            <h2>Top Användare: </h2>
+            <h4>Top Användare: </h4>
             <?php foreach ($users as $user) : ?>
                 <p>Frågor: <?= $user->amount ?>
                 <a href="<?= url("userpage/user/{$user->username}") ?>"><?= esc($user->username) ?></a></p>
@@ -28,12 +28,10 @@ if (!$users && !$tags) {
         </div>
     </div>
     <div class="block">
-        <div class="product-list-item">
-        <h2>Top Taggar: </h2>
+        <h4>Top Taggar: </h4>
         <?php foreach ($tags as $tag) : ?>
             <p>Antal frågor: <?= $tag->amount ?>
             <a href="<?= url("tags/tag?name={$tag->text}") ?>">#<?= esc($tag->text) ?></a></p>
         <?php endforeach; ?>
-    </div>
     </div>
 </div>

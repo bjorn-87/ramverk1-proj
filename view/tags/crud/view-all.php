@@ -27,7 +27,7 @@ endif;
 
 <article>
     <?php foreach ($items as $item) : ?>
-        <div class="" style="border: 1px solid black; padding: 0.5em; margin-bottom: 0.5em;">
+        <div class="tagLink">
             <a href="<?= url("tags/tag?name={$item->text}"); ?>"><?= $item->text ?></a>
         </div>
     <?php endforeach; ?>

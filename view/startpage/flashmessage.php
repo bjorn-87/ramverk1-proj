@@ -11,7 +11,7 @@ namespace Anax\View;
 ?>
 
 <?php if ($flash) : ?>
-    <span class="flashmessage info">
-        <h4><?= $flash ?></h4>
-    </span>
+    <div class="flashmessage info">
+        <p><?= $flash ?></p>
+    </div>
 <?php endif; ?>

@@ -19,7 +19,7 @@ $urlToDelete = url("question/delete");
 $defaultRoute = "?";
 
 ?><h1>Alla frågor</h1>
-<a href="<?= $urlToCreate ?>">Ställ fråga</a>
+<a class="askQuestion" href="<?= $urlToCreate ?>">Ställ fråga</a>
 
 <?php if (!$items) : ?>
     <p>There are no items to show.</p>
@@ -35,7 +35,14 @@ endif;
         <a href="<?= mergeQueryString(["limit" => 8], $defaultRoute) ?>">8</a>
     </div>
     <?php foreach ($items as $item) : ?>
-        <div class="" style="border: 1px solid black; margin-bottom: 0.5em; padding: 0.5em;">
+        <div class="questionBox">
+            <?php if ($item["tags"]) : ?>
+                <?php foreach ($item["tags"] as $value) : ?>
+                    <div class="tagLink">
+                        <a href="<?= url("tags/tag?name={$value->text}"); ?>">#<?= $value->text ?></a>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
             <div class="">
                 Svar: <?= $item["answers"]?>
                 <p>Frågad av: <a href="<?= url("userpage/user/{$item["username"]->text}"); ?>"><?= $item["username"]->text ?></a></p>
@@ -43,11 +50,7 @@ endif;
             <h2><a href="<?= url("question/questid/{$item["id"]}"); ?>"><?= $item["title"]->text ?></a></h2>
             <?= substr($item["text"]->text, 0, 50) ?>...<br><a href="<?= url("question/questid/{$item["id"]}"); ?>">Läs mer</a><br>
 
-            <?php if ($item["tags"]) : ?>
-                <?php foreach ($item["tags"] as $value) : ?>
-                    <a href="<?= url("tags/tag?name={$value->text}"); ?>">#<?= $value->text ?></a>
-                <?php endforeach; ?>
-            <?php endif; ?>
+
         </div>
 
     <?php endforeach; ?>

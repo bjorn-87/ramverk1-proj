@@ -29,8 +29,8 @@ namespace Anax\View;
 endif;
 ?>
 
-<img src="<?= $gravatar ?>" alt="User">
-<table>
+<img class="userImg" src="<?= $gravatar ?>" alt="User">
+<table class="table">
     <tr>
         <th>Id</th>
         <th>Användare</th>
@@ -49,10 +49,10 @@ endif;
         <td><?= $items->surname ?></td>
         <td><?= $items->created ?></td>
     </tr>
-</table>
+</table class="table">
 
 <h4>Frågor:</h4>
-<table>
+<table class="table">
     <tr>
         <th>Titel</th>
         <th>Text</th>
@@ -62,54 +62,54 @@ endif;
     </tr>
     <?php foreach ($questions as $quest) : ?>
     <tr>
-        <td><a href="<?= url("question/questid/{$quest->id}") ?>"><?= strip($quest->title) ?></a></td>
-        <td><?= strip_tags($quest->text) ?></td>
+        <td class=""><a href="<?= url("question/questid/{$quest->id}") ?>"><?= strip($quest->title) ?></a></td>
+        <td class="wrapping"><?= substr(strip_tags($quest->text), 0, 30) ?>...</td>
         <td><?= esc($quest->answers) ?></td>
-        <td><?= esc($quest->created) ?></td>
-        <td><?= esc($quest->deleted) ?></td>
+        <td class=""><?= esc($quest->created) ?></td>
+        <td class=""><?= esc($quest->deleted) ?></td>
     </tr>
     <?php endforeach; ?>
-</table>
+</table class="table">
 
 <h4>Svar:</h4>
-<table>
+<table class="table">
     <tr>
         <th>Text</th>
         <th>Skapad</th>
     </tr>
     <?php foreach ($answers as $answer) : ?>
     <tr>
-        <td><a href="<?= url("question/questid/{$answer->questionid}") ?>"><?= strip_tags($answer->text) ?></a></td>
-        <td><?= esc($answer->created) ?></td>
+        <td class="wrapping"><a href="<?= url("question/questid/{$answer->questionid}") ?>"><?= substr(strip_tags($answer->text), 0, 30) ?>...</a></td>
+        <td class="wrapping"><?= esc($answer->created) ?></td>
     </tr>
     <?php endforeach; ?>
-</table>
+</table class="table">
 
 <h4>Kommentarer på svar:</h4>
-<table>
+<table class="table">
     <tr>
         <th>Text</th>
         <th>Skapad</th>
     </tr>
     <?php foreach ($acomments as $acom) : ?>
     <tr>
-        <td><a href="<?= url("question/questid/{$acom->questionid}") ?>"><?= strip_tags($acom->text) ?></a></td>
-        <td><?= esc($acom->created) ?></td>
+        <td class="wrapping"><a href="<?= url("question/questid/{$acom->questionid}") ?>"><?= substr(strip_tags($acom->text), 0, 30) ?>...</a></td>
+        <td class="wrapping"><?= esc($acom->created) ?></td>
     </tr>
     <?php endforeach; ?>
-</table>
+</table class="table">
 
 
 <h4>Kommentarer på frågor:</h4>
-<table>
+<table class="table">
     <tr>
         <th>Text</th>
         <th>Skapad</th>
     </tr>
     <?php foreach ($qcomments as $qcom) : ?>
     <tr>
-        <td><a href="<?= url("question/questid/{$qcom->commentquestionid}") ?>"><?= strip_tags($qcom->text) ?></a></td>
-        <td><?= esc($qcom->created) ?></td>
+        <td class="wrapping"><a href="<?= url("question/questid/{$qcom->commentquestionid}") ?>"><?= substr(strip_tags($qcom->text), 0, 30) ?>...</a></td>
+        <td class="wrapping"><?= esc($qcom->created) ?></td>
     </tr>
     <?php endforeach; ?>
-</table>
+</table class="table">

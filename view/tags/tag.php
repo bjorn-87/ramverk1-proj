@@ -29,7 +29,7 @@ endif;
 ?>
 <article>
     <?php foreach ($items as $item) : ?>
-        <div class="" style="border: 1px solid black; padding: 0.5em; margin-bottom: 0.5em;">
+        <div class="questionBox">
             <a href="<?= url("question/questid/{$item["id"]}"); ?>"><?= $item["title"] ?></a>
             <?= $item["username"] ?></td>
         </div>
