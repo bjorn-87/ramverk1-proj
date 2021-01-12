@@ -26,6 +26,8 @@ class UserPageController implements ContainerInjectableInterface
      */
     private $session;
     private $gravatar;
+    private $user;
+    private $question;
 
 
 
@@ -41,7 +43,10 @@ class UserPageController implements ContainerInjectableInterface
         $this->session = $this->di->get("session");
         $this->gravatar = $this->di->get("gravatar");
         $this->user = $this->di->get("user");
-        // $this->userpage = new UserPage($this->di);
+        $this->question = $this->di->get("question");
+        $this->answer = $this->di->get("answer");
+        $this->aComment = $this->di->get("answercomment");
+        $this->qComment = $this->di->get("questioncomment");
     }
 
     /**
@@ -56,9 +61,8 @@ class UserPageController implements ContainerInjectableInterface
         $user->setDb($this->di->get("dbqb"));
         $gravatar = $this->gravatar;
 
-        // var_dump($this->di->session->get("user"));
         $page->add("user/crud/view-all", [
-            "items" => $user->findAllWhere("DELETED IS NULL", []),
+            "items" => $user->findAllWhere("deleted IS NULL", []),
             "gravatar" => $gravatar,
         ]);
 
@@ -77,29 +81,54 @@ class UserPageController implements ContainerInjectableInterface
     public function userAction($username) : object
     {
         $page = $this->di->get("page");
+        // get User
         $user = $this->user;
         $user->setDb($this->di->get("dbqb"));
+        // Get answer
+        $answer = $this->answer;
+        $answer->setDb($this->di->get("dbqb"));
+        $answers = $answer->findAllWhere("username = ?", [$username]);
+        // Get Question
+        $question = $this->question;
+        $question->setDb($this->di->get("dbqb"));
+        $questions = $question->findAllWhere("username = ?", [$username]);
+        // Get Question comment
+        $qComment = $this->qComment;
+        $qComment->setDb($this->di->get("dbqb"));
+        $qComments = $qComment->findAllWhere("username = ?", [$username]);
+        // Get Answercomment
+        $aComment = $this->aComment;
+        $aComment->setDb($this->di->get("dbqb"));
+        $aComments = $aComment->joinAnswerComment($username);
+
+        $aComments = $question->markdownParse($this->di, $aComments, ["purify", "markdown"]);
+        $qComments = $question->markdownParse($this->di, $qComments, ["purify", "markdown"]);
+        $answers = $question->markdownParse($this->di, $answers, ["purify", "markdown"]);
+        $questions = $question->markdownParse($this->di, $questions, ["purify", "markdown"]);
+        // Get gravatar
         $gravatar = $this->gravatar;
 
         if (!$user) {
             return $this->di->get("response")->redirect("user/login")->send();
         }
 
-        $currentUser = $this->user->checkLoggedInUser($this->di, $username);
-
-        if ($currentUser) {
-            $userPage = "userpage/userpageadmin";
-        } else {
-            $userPage = "userpage/userpage";
-        }
-
-        $page->add($userPage, [
+        $page->add("userpage/userpage", [
             "items" => $user->find("username", $username),
             "gravatar" => $gravatar->getGravatar($user->email),
+            "acomments" => $aComments,
+            "qcomments" => $qComments,
+            "questions" => $questions,
+            "answers" => $answers,
         ]);
 
+
+        $currentUser = $this->user->checkLoggedInUser($this->di, $username);
+        if ($currentUser) {
+            $page->add("userpage/userpageadmin");
+        }
+
         return $page->render([
-            "title" => "A collection of items",
+            "title" => "Användarsida",
         ]);
     }
 }

@@ -49,7 +49,7 @@ class CreateUserForm extends FormModel
 
                 "submit" => [
                     "type" => "submit",
-                    "value" => "Create user",
+                    "value" => "Skicka",
                     "callback" => [$this, "callbackSubmit"]
                 ],
             ]

@@ -5,8 +5,6 @@ namespace Bjos\Comment;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 use Bjos\Comment\HTMLForm\CreateCommentForm;
-// use Bjos\Comment\HTMLForm\DeleteCommentForm;
-// use Bjos\Comment\HTMLForm\UpdateCommentForm;
 use Bjos\Comment\AnswerComment;
 use Bjos\Comment\QuestionComment;
 
@@ -42,7 +40,6 @@ class CommentController implements ContainerInjectableInterface
         $this->textfilter = $this->di->get("textfilter");
         $this->request = $this->di->get("request");
         $this->session = $this->di->get("session");
-        $this->title = "Ändras";
     }
 
 
@@ -75,7 +72,7 @@ class CommentController implements ContainerInjectableInterface
         ]);
 
         return $page->render([
-            "title" => "Kommentar | {$this->title}",
+            "title" => "Kommentar",
         ]);
     }
 }

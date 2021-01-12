@@ -16,6 +16,33 @@ class StartPageController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
+
+    /**
+     * @var $data description
+     */
+    private $tags;
+    private $session;
+    private $question;
+    private $user;
+    private $textfilter;
+
+
+    /**
+     * The initialize method is optional and will always be called before the
+     * target method/action. This is a convienient method where you could
+     * setup internal properties that are commonly used by several methods.
+     *
+     * @return void
+     */
+    public function initialize() : void
+    {
+        $this->textfilter = $this->di->get("textfilter");
+        $this->tags = $this->di->get("tags");
+        $this->session = $this->di->get("session");
+        $this->user = $this->di->get("user");
+        $this->question = $this->di->get("question");
+    }
+
     /**
      * Show all items.
      *
@@ -24,14 +51,43 @@ class StartPageController implements ContainerInjectableInterface
     public function indexActionGet() : object
     {
         $page = $this->di->get("page");
-        // $user = new User();
-        // $user->setDb($this->di->get("dbqb"));
+        $flash = $this->session->getOnce("flash");
 
-        // var_dump($this->di->session->get("user"));
-        $page->add("startpage/startpage");
+        $question = $this->question;
+        $question->setDb($this->di->get("dbqb"));
+
+        $topUsers = $question->findTopForStartPage(
+            "COUNT(id) AS amount, username",
+            "username",
+            "amount"
+        );
+
+        $latestQuestions = $question->findAllNotDeletedLimit();
+
+        $tags = $this->tags;
+        $tags->setDb($this->di->get("dbqb"));
+        $topTags = $tags->findTopForStartPage(
+            "COUNT(id) AS amount, text",
+            "text",
+            "amount"
+        );
+
+        $page->add("startpage/flashmessage", [
+            "flash" => $flash,
+        ], "flash-message");
+
+        $page->add("startpage/startpage", [
+
+            "questions" => $latestQuestions,
+        ], "main", 1);
+
+        $page->add("startpage/sidebar-right", [
+            "users" => $topUsers,
+            "tags" => $topTags,
+        ], "sidebar-right", 2);
 
         return $page->render([
-            "title" => "Welcome",
+            "title" => "Start",
         ]);
     }
 }

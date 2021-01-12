@@ -48,7 +48,7 @@ class DeleteUserForm extends FormModel
 
                 "submit" => [
                     "type" => "submit",
-                    "value" => "Delete",
+                    "value" => "Radera",
                     "callback" => [$this, "callbackSubmit"]
                 ],
 

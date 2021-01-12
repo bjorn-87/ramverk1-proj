@@ -14,13 +14,13 @@ $items = isset($items) ? $items : null;
 $answers = isset($answers) ? $answers : null;
 $qComments = isset($qComments) ? $qComments : null;
 $aComments = isset($aComments) ? $aComments : null;
+$deleted = isset($items["deleted"]) ? true : false;
 
 // Create urls for navigation
 
 // $urlToUSerPage = ;
 // $urlToDelete = url("question/delete");
 // var_dump($items);
-
 ?>
 
 <?php if (!$items) : ?>
@@ -33,6 +33,9 @@ endif;
 
 <article class="" style="padding: 0.5em;">
 
+    <?php if ($deleted) : ?>
+        <h1>Raderad: <?= $items["deleted"] ?></h1>
+    <?php endif; ?>
 
     <div>
         <p>Fråga nummer: <?= esc($items["id"]) ?>
@@ -44,7 +47,7 @@ endif;
         <?php foreach ($tags as $value) : ?>
             <a href="<?= url("tags/tag?name={$value->text}"); ?>">#<?= esc($value->text) ?></a>
         <?php endforeach; ?>
-        <?php if ($loggedIn) : ?>
+        <?php if ($loggedIn && !$deleted) : ?>
             <a href="<?= url("comment/create?questid={$questId}&id={$items["id"]}&type=question") ?>">Kommentera</a>
         <?php endif; ?>
     </div>
@@ -68,7 +71,7 @@ endif;
 
             <a href="<?= url("userpage/user/{$answer->username}") ?>"><?= $answer->username ?></a>
             <?= $answer->created ?><br><br>
-            <?php if ($loggedIn) : ?>
+            <?php if ($loggedIn && !$deleted) : ?>
                 <a href="<?= url("comment/create?questid={$questId}&id={$answer->id}&type=answer") ?>">Kommentera</a>
             <?php endif; ?>
 

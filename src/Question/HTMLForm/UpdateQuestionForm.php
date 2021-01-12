@@ -111,7 +111,7 @@ class UpdateQuestionForm extends FormModel
     {
         $tags = new Tags();
         $tags->setDb($di->get("dbqb"));
-        $foundTags = $tags->findAllWhere("tagquestionid = ? AND DELETED IS NULL", [$id]);
+        $foundTags = $tags->findAllWhere("tagquestionid = ?", [$id]);
 
         if ($type === "string") {
             $res = "";
@@ -145,6 +145,7 @@ class UpdateQuestionForm extends FormModel
         $question->created = $this->form->value("created");
         $question->answers = $this->form->value("answers");
         $question->updated = date('Y-m-d H:i:s');
+        $question->deleted = null;
         $question->save();
 
         $oldTags = $this->getTags($this->di, $questionId, "array");
@@ -161,6 +162,7 @@ class UpdateQuestionForm extends FormModel
                     $tag->tagquestionid = $questionId;
                     $tag->text = $newTagsArray[$i];
                     $tag->updated = date('Y-m-d H:i:s');
+                    $tag->deleted = null;
                     $tag->save();
                 }
             }

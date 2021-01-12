@@ -69,7 +69,7 @@ class User extends ActiveRecordModel
      */
     public function checkLoggedInUser($di, $username) : bool
     {
-        $user = $di->session->get("user", null);
+        $user = $di->get("session")->get("user", null);
 
         if (isset($user)) {
             if ($user["username"] === $username) {

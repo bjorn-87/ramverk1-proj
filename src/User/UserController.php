@@ -118,6 +118,7 @@ class UserController implements ContainerInjectableInterface
 
         $page->add("user/crud/delete", [
             "form" => $form->getHTML(),
+            "user" => $user["username"],
         ]);
 
         return $page->render([
@@ -164,6 +165,7 @@ class UserController implements ContainerInjectableInterface
      */
     public function logoutAction()
     {
+        $this->di->session->set("flash", "Användaren har loggat ut.");
         $this->di->session->delete("user");
         return $this->di->get("response")->redirect("")->send();
     }

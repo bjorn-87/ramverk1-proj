@@ -61,7 +61,7 @@ class TagsController implements ContainerInjectableInterface
         ]);
 
         return $page->render([
-            "title" => "A collection of items",
+            "title" => "Alla taggar",
         ]);
     }
 
@@ -80,14 +80,14 @@ class TagsController implements ContainerInjectableInterface
         $question = $this->question;
         $question->setDb($this->di->get("dbqb"));
 
-        $tagsFound = $tags->findAllWhere("text = ? AND DELETED IS NULL", $tag);
+        $tagsFound = $tags->findAllWhere("text = ? AND deleted IS NULL", $tag);
 
         $foundQuestions = [];
 
         if (isset($tagsFound)) {
             foreach ($tagsFound as $value) {
                 // var_dump($value->tagquestionid);
-                $question->findWhere("id = ? AND DELETED IS NULL", $value->tagquestionid);
+                $question->findWhere("id = ? AND deleted IS NULL", $value->tagquestionid);
                 $res = [
                     "id" => $question->id,
                     "username" => $question->username,
@@ -108,7 +108,7 @@ class TagsController implements ContainerInjectableInterface
         ]);
 
         return $page->render([
-            "title" => "A collection of items",
+            "title" => "Tagg",
         ]);
     }
 
@@ -140,7 +140,7 @@ class TagsController implements ContainerInjectableInterface
         ]);
 
         return $page->render([
-            "title" => "Create a item",
+            "title" => "Skapa tagg",
         ]);
     }
 
@@ -170,31 +170,7 @@ class TagsController implements ContainerInjectableInterface
         ]);
 
         return $page->render([
-            "title" => "Delete an item",
+            "title" => "Radera tagg",
         ]);
     }
-
-
-    //
-    // /**
-    //  * Handler with form to update an item.
-    //  *
-    //  * @param int $id the id to update.
-    //  *
-    //  * @return object as a response object
-    //  */
-    // public function updateAction(int $id) : object
-    // {
-    //     $page = $this->di->get("page");
-    //     $form = new UpdateForm($this->di, $id);
-    //     $form->check();
-    //
-    //     $page->add("tags/crud/update", [
-    //         "form" => $form->getHTML(),
-    //     ]);
-    //
-    //     return $page->render([
-    //         "title" => "Update an item",
-    //     ]);
-    // }
 }

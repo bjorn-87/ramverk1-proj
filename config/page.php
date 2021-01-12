@@ -12,13 +12,13 @@ return [
         "region" => "layout",
         "template" => "anax/v2/layout/dbwebb_se",
         "data" => [
-            "baseTitle" => " | ramverk1",
+            "baseTitle" => " | ConsoleOverflow",
             "bodyClass" => null,
             "favicon" => "favicon.ico",
             "htmlClass" => null,
             "lang" => "sv",
             "stylesheets" => [
-                "css/dbwebb-se.min.css",
+                "css/proj.min.css",
             ],
             "javascripts" => [
                 "js/responsive-menu.js",
@@ -42,7 +42,7 @@ return [
             "template" => "anax/v2/header/site_logo_text",
             "data" => [
                 "homeLink"      => "",
-                "siteLogoText"  => "ramverk1",
+                "siteLogoText"  => "ConsoleOverflow",
                 "siteLogoTextIcon" => "image/theme/leaf_40x40.png",
                 "siteLogoTextIconAlt" => "Löv-bild",
             ],

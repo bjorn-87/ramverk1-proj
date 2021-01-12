@@ -5,6 +5,7 @@ namespace Bjos\Question\HTMLForm;
 use Anax\HTMLForm\FormModel;
 use Psr\Container\ContainerInterface;
 use Bjos\Question\Question;
+use Bjos\Tags\Tags;
 
 /**
  * Form to delete an item.
@@ -16,50 +17,29 @@ class DeleteQuestionForm extends FormModel
      *
      * @param Psr\Container\ContainerInterface $di a service container
      */
-    public function __construct(ContainerInterface $di)
+    public function __construct(ContainerInterface $di, $id)
     {
         parent::__construct($di);
         $this->form->create(
             [
                 "id" => __CLASS__,
-                "legend" => "Delete an item",
+                "legend" => "Radera fråga",
             ],
             [
-                "select" => [
-                    "type"        => "select",
-                    "label"       => "Select item to delete:",
-                    "options"     => $this->getAllItems(),
+                "id" => [
+                    "type"  => "number",
+                    "readonly" => true,
+                    "value" => $id,
                 ],
 
                 "submit" => [
                     "type" => "submit",
-                    "value" => "Delete item",
+                    "value" => "Radera",
                     "callback" => [$this, "callbackSubmit"]
                 ],
             ]
         );
     }
-
-
-
-    /**
-     * Get all items as array suitable for display in select option dropdown.
-     *
-     * @return array with key value of all items.
-     */
-    protected function getAllItems() : array
-    {
-        $question = new Question();
-        $question->setDb($this->di->get("dbqb"));
-
-        $questions = ["-1" => "Select an item..."];
-        foreach ($question->findAll() as $obj) {
-            $questions[$obj->id] = "{$obj->title} ({$obj->id})";
-        }
-
-        return $questions;
-    }
-
 
 
     /**
@@ -70,10 +50,26 @@ class DeleteQuestionForm extends FormModel
      */
     public function callbackSubmit() : bool
     {
+        $id = $this->form->value("id");
         $question = new Question();
         $question->setDb($this->di->get("dbqb"));
-        $question->find("id", $this->form->value("select"));
-        $question->delete();
+        $question->find("id", $id);
+        $question->deleted = date('Y-m-d H:i:s');
+        $question->save();
+
+        $tags = new Tags();
+        $tags->setDb($this->di->get("dbqb"));
+        $foundTag = $tags->findAllWhere("tagquestionid = ?", $id);
+        if ($foundTag) {
+            foreach ($foundTag as $tag) {
+                $tag->setDb($this->di->get("dbqb"));
+                $tag->deleted = date('Y-m-d H:i:s');
+                $tag->save();
+                // var_dump($tag);
+            }
+        }
+
+
         return true;
     }
 

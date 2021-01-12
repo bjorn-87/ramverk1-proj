@@ -10,14 +10,14 @@ namespace Anax\View;
 //echo showEnvironment(get_defined_vars());
 
 // Create urls for navigation
-$urlToView = url("question");
+$urlToView = url("question/questid/{$id}");
 
 
 
-?><h1>Delete an item</h1>
+?><h1>Radera fråga : <?= $id ?></h1>
 
 <?= $form ?>
 
 <p>
-    <a href="<?= $urlToView ?>">View all</a>
+    <a href="<?= $urlToView ?>">Tillbaka</a>
 </p>

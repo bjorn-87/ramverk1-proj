@@ -10,9 +10,6 @@ use Bjos\Question\HTMLForm\UpdateQuestionForm;
 use Bjos\Answer\HTMLForm\CreateAnswerForm;
 use Bjos\Answer\HTMLForm\DeleteAnswerForm;
 use Bjos\Answer\HTMLForm\UpdateAnswerForm;
-// use Bjos\Comment\HTMLForm\CreateCommentForm;
-// use Bjos\Comment\HTMLForm\DeleteCommentForm;
-// use Bjos\Comment\HTMLForm\UpdateCommentForm;
 use Bjos\Comment\AnswerComment;
 use Bjos\Comment\QuestionComment;
 
@@ -51,7 +48,6 @@ class QuestionController implements ContainerInjectableInterface
         $this->session = $this->di->get("session");
         $this->user = $this->di->get("user");
         $this->answer = $this->di->get("answer");
-        $this->title = "Ändras";
     }
 
 
@@ -76,14 +72,22 @@ class QuestionController implements ContainerInjectableInterface
             return $this->di->get("response")->redirect("question")->send();
         }
 
-        $total = $question->countTotal("DELETED IS NULL");
+        $total = $question->countTotal("deleted IS NULL");
         $max = ceil($total->total / $limit);
 
         $paginate = $request->getGet("page", 1);
+
         if (!(is_numeric($limit) && $paginate > 0 && $paginate <= $max)) {
-            $this->session->set("max", $max);
-            return $this->di->get("response")->redirect("question")->send();
+            $page->add("question/crud/view-all", [
+                "items" => null,
+                "max" => null,
+            ]);
+
+            return $page->render([
+                "title" => $this->title . " | Alla frågor",
+            ]);
         }
+
         $offset = $limit * ($paginate - 1);
 
         $items = $question->findAllPaginate($limit, $offset);
@@ -101,7 +105,7 @@ class QuestionController implements ContainerInjectableInterface
                     "created" => $value->created,
                     "updated" => $value->updated,
                     "deleted" => $value->deleted,
-                    "tags" => $tags->findAllWhere("tagquestionid = ? AND DELETED IS NULL", $value->id),
+                    "tags" => $tags->findAllWhere("tagquestionid = ? AND deleted IS NULL", $value->id),
                 ]);
             }
         }
@@ -112,7 +116,7 @@ class QuestionController implements ContainerInjectableInterface
         ]);
 
         return $page->render([
-            "title" => "$this->title | Alla frågor",
+            "title" => "Alla frågor",
         ]);
     }
 
@@ -132,6 +136,8 @@ class QuestionController implements ContainerInjectableInterface
         $question->setDb($this->di->get("dbqb"));
         $quest = $question->find("id", $questid);
 
+        $deleted = isset($quest->deleted) ? true : false;
+
         // Get Tags
         $tags = $this->tags;
         $tags->setDb($this->di->get("dbqb"));
@@ -146,6 +152,7 @@ class QuestionController implements ContainerInjectableInterface
             "answers" => $quest->answers,
             "created" => $quest->created,
             "updated" => $quest->updated,
+            "deleted" => $quest->deleted,
         ];
 
         $validate = $this->user->checkLoggedInUser($this->di, $quest->username);
@@ -183,7 +190,7 @@ class QuestionController implements ContainerInjectableInterface
         ]);
 
         // Admin cannot answer its own question
-        if (isset($user) && !$validate) {
+        if (isset($user) && !$validate && !$deleted) {
             $answerForm = new CreateAnswerForm($this->di, $questid);
             $answerForm->check();
             $page->add("question/answerform", [
@@ -198,7 +205,7 @@ class QuestionController implements ContainerInjectableInterface
         }
 
         return $page->render([
-            "title" => "A collection of items",
+            "title" => "Fråga " . $questid,
         ]);
     }
 
@@ -226,95 +233,43 @@ class QuestionController implements ContainerInjectableInterface
         ]);
 
         return $page->render([
-            "title" => "Create a item",
+            "title" => "Ställ fråga",
         ]);
     }
 
-    //
-    // /**
-    //  * Handler with form to delete an item.
-    //  *
-    //  * @return object as a response object
-    //  */
-    // public function deleteAction() : object
-    // {
-    //     $page = $this->page;
-    //     $user = $this->session->get("user", null);
-    //     if (!$user) {
-    //         $this->di->get("response")->redirect("user/login")->send();
-    //     }
-    //     $id = isset($user) ? $user["id"] : null;
-    //
-    //     $tags = $this->tags;
-    //     $question = $this->question;
-    //
-    //
-    //     // var_dump($tags);
-    //     // var_dump($question);
-    //
-    //
-    //     $tags->setDb($this->di->get("dbqb"));
-    //     $question->setDb($this->di->get("dbqb"));
-    //
-    //
-    //     $username = $user["username"];
-    //
-    //     var_dump($username);
-    //     $deleteTags = [];
-    //
-    //     $userQuestion = $question->findAllWhere("username = ?", $username);
-    //
-    //     foreach ($userQuestion as $value) {
-    //         $qId = $value->id;
-    //         $userTags = $tags->findAllWhere("tag_question_id = ?", $qId);
-    //         if ($userTags) {
-    //             foreach ($userTags as $value) {
-    //                 array_push($deleteTags, $value->id);
-    //             }
-    //         }
-    //     }
-    //     var_dump($userQuestion);
-    //     var_dump($deleteTags);
-    //
-    //     // $qId =
-    //     // $dbTags = $tags->find("tag_question_id", $dbQuestion->id);
-    //     // var_dump($dbTags);
-    //
-    //
-    //
-    //     $form = new DeleteUserForm($this->di, $id);
-    //     $form->check();
-    //
-    //     $page->add("user/crud/delete", [
-    //         "form" => $form->getHTML(),
-    //     ]);
-    //
-    //     return $page->render([
-    //         "title" => "Delete an item",
-    //     ]);
-    // }
 
-    // /**
-    //  * Handler with form to delete an item.
-    //  *
-    //  * @return object as a response object
-    //  */
-    // public function deleteAction() : object
-    // {
-    //     $page = $this->di->get("page");
-    //     $form = new DeleteQuestionForm($this->di);
-    //     $form->check();
-    //
-    //     $page->add("question/crud/delete", [
-    //         "form" => $form->getHTML(),
-    //     ]);
-    //
-    //     return $page->render([
-    //         "title" => "Delete an item",
-    //     ]);
-    // }
+    /**
+     * Handler with form to delete an item.
+     *
+     * @return object as a response object
+     */
+    public function deleteAction(int $questid) : object
+    {
+        $page = $this->di->get("page");
 
+        $question = new Question();
+        $question->setDb($this->di->get("dbqb"));
+        $quest = $question->find("id", $questid);
+        // var_dump($quest);
 
+        $validate = $this->user->checkLoggedInUser($this->di, $quest->username);
+
+        if (!$validate) {
+            $this->di->get("response")->redirect("user/login")->send();
+        }
+
+        $form = new DeleteQuestionForm($this->di, $questid);
+        $form->check();
+
+        $page->add("question/crud/delete", [
+            "form" => $form->getHTML(),
+            "id" => $questid,
+        ]);
+
+        return $page->render([
+            "title" => "Radera fråga",
+        ]);
+    }
 
     /**
      * Handler with form to update an item.
@@ -345,7 +300,7 @@ class QuestionController implements ContainerInjectableInterface
         ]);
 
         return $page->render([
-            "title" => "Update an item",
+            "title" => "Uppdatera fråga",
         ]);
     }
 }

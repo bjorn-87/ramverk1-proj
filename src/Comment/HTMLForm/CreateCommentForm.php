@@ -27,7 +27,7 @@ class CreateCommentForm extends FormModel
         $this->form->create(
             [
                 "id" => __CLASS__,
-                "legend" => "Details of the item",
+                "legend" => "Kommentera",
             ],
             [
                 "id" => [
@@ -52,7 +52,7 @@ class CreateCommentForm extends FormModel
 
                 "submit" => [
                     "type" => "submit",
-                    "value" => "Create item",
+                    "value" => "Skicka",
                     "callback" => [$this, "callbackSubmit"]
                 ],
             ]

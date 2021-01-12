@@ -19,6 +19,7 @@ $urlToDelete = url("question/delete");
 $defaultRoute = "?";
 
 ?><h1>Alla frågor</h1>
+<a href="<?= $urlToCreate ?>">Ställ fråga</a>
 
 <?php if (!$items) : ?>
     <p>There are no items to show.</p>
@@ -26,7 +27,6 @@ $defaultRoute = "?";
     return;
 endif;
 ?>
-<a href="<?= $urlToCreate ?>">Ställ fråga</a>
 
 <article>
     <div class="pageButton">Antal per sida:
@@ -37,7 +37,6 @@ endif;
     <?php foreach ($items as $item) : ?>
         <div class="" style="border: 1px solid black; margin-bottom: 0.5em; padding: 0.5em;">
             <div class="">
-                Röster: <?= $item["vote"]?>
                 Svar: <?= $item["answers"]?>
                 <p>Frågad av: <a href="<?= url("userpage/user/{$item["username"]->text}"); ?>"><?= $item["username"]->text ?></a></p>
             </div>

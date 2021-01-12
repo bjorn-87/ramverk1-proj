@@ -10,7 +10,7 @@ namespace Anax\View;
 //echo showEnvironment(get_defined_vars());
 
 // Create urls for navigation
-$urlToView = url("user");
+$urlToView = url("userpage/user/{$user}");
 
 
 
@@ -19,5 +19,5 @@ $urlToView = url("user");
 <?= $form ?>
 
 <p>
-    <a href="<?= $urlToView ?>">View all</a>
+    <a href="<?= $urlToView ?>">Tillbaka</a>
 </p>

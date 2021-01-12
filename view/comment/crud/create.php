@@ -17,7 +17,7 @@ $urlToViewItems = url("question/questid/{$questId}");
 
 
 
-?><h1>Ställ en fråga</h1>
+?><h1>Kommentera fråga <?= $questId ?></h1>
 
 <?= $form ?>
 

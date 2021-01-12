@@ -78,14 +78,15 @@ class UserLoginForm extends FormModel
             return false;
         }
 
-        $this->di->session->set("user", [
+        $this->di->get("session")->set("flash", $user->username . " har loggat in.");
+
+        $this->di->get("session")->set("user", [
             "id" => $user->id,
             "username" => $user->username,
             "email" => $user->email,
             "role" => $user->role,
         ]);
 
-        // $this->form->addOutput("User " . $user->username . " logged in.");
         return true;
     }
 

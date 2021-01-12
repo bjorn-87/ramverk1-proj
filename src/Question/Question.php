@@ -40,8 +40,9 @@ class Question extends MyActiveRecordModel
      */
     public function markdownParse($di, $object, $filter)
     {
+        $textfilter = $di->get("textfilter");
         foreach ($object as $value) {
-            $value->text = $di->textfilter->parse($value->text, $filter)->text;
+            $value->text = $textfilter->parse($value->text, $filter)->text;
         }
         return $object;
     }
