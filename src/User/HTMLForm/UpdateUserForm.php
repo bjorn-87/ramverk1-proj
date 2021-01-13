@@ -28,14 +28,14 @@ class UpdateUserForm extends FormModel
             ],
             [
                 "id" => [
-                    "type" => "number",
+                    "type" => "hidden",
                     "validation" => ["not_empty"],
                     "readonly" => true,
                     "value" => $user->id,
                 ],
 
                 "username" => [
-                    "type" => "text",
+                    "type" => "hidden",
                     "validation" => ["not_empty"],
                     "readonly" => true,
                     "value" => $user->username,
@@ -155,6 +155,7 @@ class UpdateUserForm extends FormModel
             "role" => $user->role,
         ]);
 
+        $this->form->addOutput("User updated.");
         return true;
     }
 

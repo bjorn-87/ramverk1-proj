@@ -25,6 +25,10 @@ $items = isset($items) ? $items : null;
 endif;
 ?>
 
+<form class="htmlform" action="<?= url("tags/tag") ?>" method="get">
+    <input type="text" name="name" value="" placeholder="Tryck Enter för att söka">
+</form>
+
 <article>
     <?php foreach ($items as $item) : ?>
         <div class="tagLink">

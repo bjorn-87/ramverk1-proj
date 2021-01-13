@@ -27,6 +27,7 @@ $answerCount = 1;
 <?php if (!$items) : ?>
     <h1>404</h1>
     <p>There are no items to show.</p>
+    <a href="<?= url("question") ?>">Tillbaka</a>
     <?php
     return;
 endif;
@@ -39,17 +40,17 @@ endif;
     <?php endif; ?>
 
     <div class="questionBox">
+        <?php foreach ($tags as $value) : ?>
+            <div class="tagLink">
+                <a href="<?= url("tags/tag?name={$value->text}"); ?>">#<?= esc($value->text) ?></a>
+            </div>
+        <?php endforeach; ?>
         <h3>Fråga nummer: <?= esc($items["id"]) ?></h3>
         <p>Frågad av: <a href="<?= url("userpage/user/{$items["username"]}"); ?>"><?= esc($items["username"]) ?></a></p>
         <p><?= $items["text"] ?></p>
         <p>Svar: <?= esc($items["answers"]) ?></p>
         <p>Skapad: <?= esc($items["created"]) ?>
         <?=$items["updated"] ? "| Uppdaterad: " . esc($items["updated"]) : null ?></p>
-        <?php foreach ($tags as $value) : ?>
-            <div class="tagLink">
-                <a href="<?= url("tags/tag?name={$value->text}"); ?>">#<?= esc($value->text) ?></a>
-            </div>
-        <?php endforeach; ?>
         <?php if ($loggedIn && !$deleted) : ?>
             <a class="askQuestion" href="<?= url("comment/create?questid={$questId}&id={$items["id"]}&type=question") ?>">Kommentera</a>
         <?php endif; ?>
@@ -88,4 +89,5 @@ endif;
             </div>
         <?php endforeach; ?>
     </div>
+    <a href="<?= url("question") ?>">Tillbaka</a>
 </article>

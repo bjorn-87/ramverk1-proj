@@ -19,19 +19,26 @@ $urlToDelete = url("tags/delete");
 // var_dump($items);
 
 
-?><h1>Frågor taggade med [<?= htmlentities($title) ?>]</h1>
+?><h1>Frågor taggade med [<?= strip($title) ?>]</h1>
+<form class="htmlform" action="<?= url("tags/tag") ?>" method="get">
+    <input type="text" name="name" value="" placeholder="Tryck Enter för att söka">
+</form>
 
 <?php if (!$items) : ?>
-    <p>Det finns inga frågor taggade med <b><?= htmlentities($title) ?></b>.</p>
+    <p>Det finns inga frågor taggade med <b><?= strip($title) ?></b>.</p>
+    <a href="<?= url("tags") ?>">Tillbaka</a>
     <?php
     return;
 endif;
 ?>
+
+
 <article>
     <?php foreach ($items as $item) : ?>
-        <div class="questionBox">
+        <div class="tagBox">
             <a href="<?= url("question/questid/{$item["id"]}"); ?>"><?= $item["title"] ?></a>
-            <?= $item["username"] ?></td>
+            <a href="<?= url("userpage/user/{$item["username"]}"); ?>">Frågat av: <?= strip($item["username"]) ?></a>
         </div>
     <?php endforeach; ?>
+    <a href="<?= url("tags") ?>">Tillbaka</a>
 </article>
