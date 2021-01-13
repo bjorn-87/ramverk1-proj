@@ -16,12 +16,12 @@ $qComments = isset($qComments) ? $qComments : null;
 $aComments = isset($aComments) ? $aComments : null;
 $deleted = isset($items["deleted"]) ? true : false;
 
-$answerCount = 1;
+$answerCount = count($answers) + 1;
 // Create urls for navigation
 
 // $urlToUSerPage = ;
 // $urlToDelete = url("question/delete");
-// var_dump($items);
+// var_dump(count($answers));
 ?>
 
 <?php if (!$items) : ?>
@@ -67,7 +67,7 @@ endif;
     <div class="questionBox">
         <?php foreach ($answers as $answer) : ?>
             <div class="" >
-            <h3>Svar: <?= $answerCount++ ?></h3>
+            <h3>Svar: <?= $answerCount -= 1 ?></h3>
             <?= $answer->text ?>
 
             <a href="<?= url("userpage/user/{$answer->username}") ?>"><?= $answer->username ?></a>
