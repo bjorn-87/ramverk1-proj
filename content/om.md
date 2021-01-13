@@ -19,10 +19,6 @@ views:
 Om
 =========================
 
-Detta innehåll är skrivet i markdown och du hittar innehållet i filen `content/om.md`.
-
-Skriv några kloka ord om kursen?
-
-Lägg till en representativ bild för kursen, enligt ditt egna val.
+Denna sida är skapad av Björn Olsson som ett projektarbete i Kursen DV1610 Webbaserade ramverk och designmönster.
 
 [FIGURE src=image/console.jpg?w=300 caption="En klassisk spelkonsol."]

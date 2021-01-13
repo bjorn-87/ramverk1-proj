@@ -84,7 +84,7 @@ class QuestionController implements ContainerInjectableInterface
             ]);
 
             return $page->render([
-                "title" => $this->title . " | Alla frågor",
+                "title" => "Alla frågor",
             ]);
         }
 

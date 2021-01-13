@@ -25,8 +25,8 @@ $urlToDeleteTag = url("tags/delete/{$id}");
 <?= $form ?>
 
 <p>
-    <a href="<?= $urlToCreateTag ?>">Skapa tagg</a>
-    <a href="<?= $urlToDeleteTag ?>">Radera tagg</a>
+    <a class="askQuestion" href="<?= $urlToCreateTag ?>">Skapa tagg</a>
+    <a class="delete" href="<?= $urlToDeleteTag ?>">Radera tagg</a>
 </p>
 <p>
     <a href="<?= $urlToView ?>">Tillbaka</a>

@@ -15,3 +15,10 @@ Clone this repo and use the command `make install`
 
 # Testing
 ### `make test`
+
+# Database
+`MySQL` is used as database and all you need to set up the database is found in the `sql/ddl` folder.
+Easiest way to set it up is to use the `backup.sql` with mysql workbench.
+
+# Webserver
+You need a Webserver like `Xampp` installed.
