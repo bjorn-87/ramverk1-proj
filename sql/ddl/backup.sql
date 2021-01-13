@@ -26,13 +26,13 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `ramverk1proj` /*!40100 DEFAULT CHARACT
 USE `ramverk1proj`;
 
 --
--- Table structure for table `answer`
+-- Table structure for table `Answer`
 --
 
-DROP TABLE IF EXISTS `answer`;
+DROP TABLE IF EXISTS `Answer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `answer` (
+CREATE TABLE `Answer` (
   `id` int NOT NULL AUTO_INCREMENT,
   `questionid` int NOT NULL,
   `username` varchar(45) COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -44,28 +44,28 @@ CREATE TABLE `answer` (
   `deleted` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `questionid_idx` (`questionid`),
-  CONSTRAINT `questionid` FOREIGN KEY (`questionid`) REFERENCES `question` (`id`)
+  CONSTRAINT `questionid` FOREIGN KEY (`questionid`) REFERENCES `Question` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `answer`
+-- Dumping data for table `Answer`
 --
 
-LOCK TABLES `answer` WRITE;
-/*!40000 ALTER TABLE `answer` DISABLE KEYS */;
-INSERT INTO `answer` VALUES (1,1,'doe','Nu fick jag leveransbesked från posten!',0,0,'2021-01-12 23:32:08',NULL,NULL);
-/*!40000 ALTER TABLE `answer` ENABLE KEYS */;
+LOCK TABLES `Answer` WRITE;
+/*!40000 ALTER TABLE `Answer` DISABLE KEYS */;
+INSERT INTO `Answer` VALUES (1,1,'doe','Nu fick jag leveransbesked från posten!',0,0,'2021-01-12 23:32:08',NULL,NULL);
+/*!40000 ALTER TABLE `Answer` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `answercomment`
+-- Table structure for table `Answercomment`
 --
 
-DROP TABLE IF EXISTS `answercomment`;
+DROP TABLE IF EXISTS `Answercomment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `answercomment` (
+CREATE TABLE `Answercomment` (
   `id` int NOT NULL AUTO_INCREMENT,
   `answerid` int NOT NULL,
   `username` varchar(45) COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -76,28 +76,28 @@ CREATE TABLE `answercomment` (
   `deleted` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `answerid_idx` (`answerid`),
-  CONSTRAINT `answerid` FOREIGN KEY (`answerid`) REFERENCES `answer` (`id`)
+  CONSTRAINT `answerid` FOREIGN KEY (`answerid`) REFERENCES `Answer` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `answercomment`
+-- Dumping data for table `Answercomment`
 --
 
-LOCK TABLES `answercomment` WRITE;
-/*!40000 ALTER TABLE `answercomment` DISABLE KEYS */;
-INSERT INTO `answercomment` VALUES (1,1,'bjos19','Vilken lycka, jag har inte fått min :/',0,'2021-01-12 23:32:08',NULL,NULL);
-/*!40000 ALTER TABLE `answercomment` ENABLE KEYS */;
+LOCK TABLES `Answercomment` WRITE;
+/*!40000 ALTER TABLE `Answercomment` DISABLE KEYS */;
+INSERT INTO `Answercomment` VALUES (1,1,'bjos19','Vilken lycka, jag har inte fått min :/',0,'2021-01-12 23:32:08',NULL,NULL);
+/*!40000 ALTER TABLE `Answercomment` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `question`
+-- Table structure for table `Question`
 --
 
-DROP TABLE IF EXISTS `question`;
+DROP TABLE IF EXISTS `Question`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `question` (
+CREATE TABLE `Question` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(45) COLLATE utf8mb4_swedish_ci NOT NULL,
   `title` varchar(100) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
@@ -109,28 +109,28 @@ CREATE TABLE `question` (
   `deleted` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `username_idx` (`username`),
-  CONSTRAINT `username` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
+  CONSTRAINT `username` FOREIGN KEY (`username`) REFERENCES `User` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `question`
+-- Dumping data for table `Question`
 --
 
-LOCK TABLES `question` WRITE;
-/*!40000 ALTER TABLE `question` DISABLE KEYS */;
-INSERT INTO `question` VALUES (1,'bjos19','N&auml;r kommer min PS5','N&auml;r f&aring;r jag min ps5  &Auml;r det n&aring;gon annan som f&aring;tt sin?',NULL,1,'2021-01-12 23:32:08','2021-01-12 23:36:54',NULL);
-/*!40000 ALTER TABLE `question` ENABLE KEYS */;
+LOCK TABLES `Question` WRITE;
+/*!40000 ALTER TABLE `Question` DISABLE KEYS */;
+INSERT INTO `Question` VALUES (1,'bjos19','N&auml;r kommer min PS5','N&auml;r f&aring;r jag min ps5  &Auml;r det n&aring;gon annan som f&aring;tt sin?',NULL,1,'2021-01-12 23:32:08','2021-01-12 23:36:54',NULL);
+/*!40000 ALTER TABLE `Question` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `questioncomment`
+-- Table structure for table `Questioncomment`
 --
 
-DROP TABLE IF EXISTS `questioncomment`;
+DROP TABLE IF EXISTS `Questioncomment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `questioncomment` (
+CREATE TABLE `Questioncomment` (
   `id` int NOT NULL AUTO_INCREMENT,
   `commentquestionid` int NOT NULL,
   `username` varchar(45) COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -141,28 +141,28 @@ CREATE TABLE `questioncomment` (
   `deleted` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `commentquestionid_idx` (`commentquestionid`),
-  CONSTRAINT `commentquestionid` FOREIGN KEY (`commentquestionid`) REFERENCES `question` (`id`)
+  CONSTRAINT `commentquestionid` FOREIGN KEY (`commentquestionid`) REFERENCES `Question` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `questioncomment`
+-- Dumping data for table `Questioncomment`
 --
 
-LOCK TABLES `questioncomment` WRITE;
-/*!40000 ALTER TABLE `questioncomment` DISABLE KEYS */;
-INSERT INTO `questioncomment` VALUES (1,1,'doe','Nej jag har inte fått min iallafall',0,'2021-01-12 23:32:08',NULL,NULL);
-/*!40000 ALTER TABLE `questioncomment` ENABLE KEYS */;
+LOCK TABLES `Questioncomment` WRITE;
+/*!40000 ALTER TABLE `Questioncomment` DISABLE KEYS */;
+INSERT INTO `Questioncomment` VALUES (1,1,'doe','Nej jag har inte fått min iallafall',0,'2021-01-12 23:32:08',NULL,NULL);
+/*!40000 ALTER TABLE `Questioncomment` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tags`
+-- Table structure for table `Tags`
 --
 
-DROP TABLE IF EXISTS `tags`;
+DROP TABLE IF EXISTS `Tags`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tags` (
+CREATE TABLE `Tags` (
   `id` int NOT NULL AUTO_INCREMENT,
   `tagquestionid` int NOT NULL,
   `text` text COLLATE utf8mb4_swedish_ci,
@@ -171,28 +171,28 @@ CREATE TABLE `tags` (
   `deleted` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `tagquestionid_idx` (`tagquestionid`),
-  CONSTRAINT `tagquestionid` FOREIGN KEY (`tagquestionid`) REFERENCES `question` (`id`)
+  CONSTRAINT `tagquestionid` FOREIGN KEY (`tagquestionid`) REFERENCES `Question` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tags`
+-- Dumping data for table `Tags`
 --
 
-LOCK TABLES `tags` WRITE;
-/*!40000 ALTER TABLE `tags` DISABLE KEYS */;
-INSERT INTO `tags` VALUES (1,1,'Ps5',NULL,'2021-01-12 23:36:54',NULL),(2,1,'villha',NULL,'2021-01-12 23:36:54',NULL);
-/*!40000 ALTER TABLE `tags` ENABLE KEYS */;
+LOCK TABLES `Tags` WRITE;
+/*!40000 ALTER TABLE `Tags` DISABLE KEYS */;
+INSERT INTO `Tags` VALUES (1,1,'Ps5',NULL,'2021-01-12 23:36:54',NULL),(2,1,'villha',NULL,'2021-01-12 23:36:54',NULL);
+/*!40000 ALTER TABLE `Tags` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `user`
+-- Table structure for table `User`
 --
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user` (
+CREATE TABLE `User` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(45) COLLATE utf8mb4_swedish_ci NOT NULL,
   `password` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -212,13 +212,13 @@ CREATE TABLE `user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `User`
 --
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'bjos19','$2y$10$F3h89c1tc/KHZ0P1EgBeNeV09OXiDgDpfFerBhqFEiwJN1AxBZI3e',NULL,NULL,'bjos19@student.bth.se','admin','2021-01-12 23:32:08',NULL,NULL,0,0),(2,'doe','$2y$10$OLLVEziRMxZ2thPbvRbwhuL6tIIdoYGKKlXMD./ptyVgeJl98Q6Nq',NULL,NULL,'doe@doe.doe','user','2021-01-12 23:32:08',NULL,NULL,0,0);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+LOCK TABLES `User` WRITE;
+/*!40000 ALTER TABLE `User` DISABLE KEYS */;
+INSERT INTO `User` VALUES (1,'bjos19','$2y$10$F3h89c1tc/KHZ0P1EgBeNeV09OXiDgDpfFerBhqFEiwJN1AxBZI3e',NULL,NULL,'bjos19@student.bth.se','admin','2021-01-12 23:32:08',NULL,NULL,0,0),(2,'doe','$2y$10$OLLVEziRMxZ2thPbvRbwhuL6tIIdoYGKKlXMD./ptyVgeJl98Q6Nq',NULL,NULL,'doe@doe.doe','User','2021-01-12 23:32:08',NULL,NULL,0,0);
+/*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

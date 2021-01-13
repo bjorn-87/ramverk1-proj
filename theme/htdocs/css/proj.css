@@ -5695,7 +5695,31 @@ h1 {
   margin-bottom: 1.4rem;
   resize: none;
 }
+.htmlform select {
+  font-size: 1.4rem;
+  line-height: 1.4;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 0.2rem;
+  padding: 0.5rem 2rem;
+  box-sizing: border-box;
+  width: 50%;
+  margin-bottom: 1.4rem;
+  resize: none;
+}
 .htmlform input[type=password] {
+  font-size: 1.4rem;
+  line-height: 1.4;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 0.2rem;
+  padding: 0.5rem 2rem;
+  box-sizing: border-box;
+  width: 50%;
+  margin-bottom: 1.4rem;
+  resize: none;
+}
+.htmlform input[type=number] {
   font-size: 1.4rem;
   line-height: 1.4;
   display: block;
@@ -5882,6 +5906,8 @@ tr:nth-of-type(2n) {
   .htmlform input[type=password],
   .htmlform input[type=text],
   .htmlform input[type=email],
+  .htmlform input[type=number],
+  .htmlform select,
   .htmlform textarea {
     width: 100%;
   }
