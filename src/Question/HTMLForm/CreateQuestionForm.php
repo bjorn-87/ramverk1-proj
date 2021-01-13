@@ -43,7 +43,7 @@ class CreateQuestionForm extends FormModel
 
                 "tags" => [
                     "type" => "text",
-                    "placeholder" => "Skriv in taggens/taggarnas namn separerade med mellanslag"
+                    "placeholder" => "ex. tag1 tag2"
                 ],
 
                 "submit" => [
